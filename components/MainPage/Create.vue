@@ -1,21 +1,32 @@
 <template>
-  <div class="max-w-3xl mx-auto mt-10 space-y-10 font-mono">
-    <div class="mb-10 font-mono text-2xl font-bold">Create Posts</div>
+  <div class="max-w-sm p-3 mx-auto mt-10 space-y-10 font-mono sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-4xl">
+    <div class="flex mb-10 font-mono text-2xl font-bold">
+      <div data-aos="fade-right" :data-aos-delay="50">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class=" size-7">
+          <path
+            d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+          <path
+            d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+        </svg>
+      </div>
+      <div>Create Posts</div>
+    </div>
 
-    <div class="mb-4">
-      <label class="block mb-2 text-sm font-bold text-gray-700" for="genre">
+    <div class="mb-4" data-aos="fade-right" :data-aos-delay="100">
+      <label class="block mb-2 text-sm font-bold " for="genre">
         Genre
       </label>
-      <select v-model="genre"
+      <select data-aos="fade-right" :data-aos-delay="100" v-model="genre"
         class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
         id="genre">
-        <option>Default</option>
+        <option disabled value="">Select a genre</option>
+        <option v-for="(genre, index) in genres" :key="index" :value="genre">{{ genre }}</option>
       </select>
       <span class="text-red-500" v-if="errors.genre">{{ errors.genre }}</span>
     </div>
 
-    <div class="mb-4">
-      <label class="block mb-2 text-sm font-bold text-gray-700" for="title">
+    <div class="mb-4" data-aos="fade-left" :data-aos-delay="150">
+      <label class="block mb-2 text-sm font-bold" for="title">
         Title
       </label>
       <input v-model="title"
@@ -24,11 +35,11 @@
       <span class="text-red-500" v-if="errors.title">{{ errors.title }}</span>
     </div>
 
-    <div class="mb-4">
-      <label class="block mb-2 text-sm font-bold text-gray-700" for="images">
+    <div class="mb-4" data-aos="fade-right" :data-aos-delay="200">
+      <label class="block mb-2 text-sm font-bold" for="images">
         Insert Photo
       </label>
-      <div class="flex items-center justify-center w-full h-40 border-2 border-dashed">
+      <div class="flex items-center justify-center w-full h-40 border-2 border-green-400 border-dashed">
         <input type="file" multiple @change="handleFileUpload" class="p-2 mb-4 border" />
       </div>
       <div class="grid grid-cols-3 gap-4 mt-7">
@@ -42,14 +53,8 @@
       <span class="text-red-500" v-if="errors.images">{{ errors.images }}</span>
     </div>
 
-    <div class="mb-4">
-      <label class="block mb-2 text-sm font-bold text-gray-700" for="editor">
-        Editor
-      </label>
-      <div id="editor" ref="editorContainer"></div>
-      <button onclick="editor.commands.toggleItalic()">Italic</button>
-      <button onclick="editor.commands.toggleBold()">Bold</button>
-      <span class="text-red-500" v-if="errors.editor">{{ errors.editor }}</span>
+    <div>
+      <div ref="editorContainer"></div>
     </div>
 
     <div class="flex justify-end gap-3 p-5">
@@ -76,6 +81,48 @@ export default {
     const token = ref('');
     const userId = ref('');
     const themeStore = useThemeStore();
+    const genres = ref([
+      'Action',
+      'Adventure',
+      'Technology',
+      'Comedy',
+      'Drama',
+      'Fantasy',
+      'Historical',
+      'Horror',
+      'Mystery',
+      'Romance',
+      'Sci-Fi',
+      'Thriller',
+      'Western',
+      'Animation',
+      'Documentary',
+      'Crime',
+      'Biography',
+      'Family',
+      'Music',
+      'Musical',
+      'Sports',
+      'War',
+      'Superhero',
+      'Adventure Comedy',
+      'Fantasy Adventure',
+      'Science Fantasy',
+      'Political',
+      'Social',
+      'Psychological',
+      'Historical Drama',
+      'Urban',
+      'Adventure Drama',
+      'Historical Romance',
+      'Action Comedy',           // Added
+      'Romantic Comedy',         // Added
+      'Dark Comedy',             // Added        
+      'Fantasy Comedy',          // Added
+      'Family Drama',            // Added       
+
+    ]);
+
 
     const schema = Yup.object({
       genre: Yup.string().required('*required'),
@@ -118,14 +165,14 @@ export default {
             });
           }
         }),
-        res.data.postAuth.forEach(post => {
-          if (post.images && post.images.length > 0) {
-            post.images.forEach((img, index) => {
-              post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
-            });
-          }
-        }),
-        themeStore.getPosts(res.data.post);
+          res.data.postAuth.forEach(post => {
+            if (post.images && post.images.length > 0) {
+              post.images.forEach((img, index) => {
+                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+              });
+            }
+          }),
+          themeStore.getPosts(res.data.post);
         themeStore.getProfilePost(res.data.postAuth);
         navigateTo(`/profile/${userId.value}`);
       });
@@ -183,7 +230,9 @@ export default {
       onSubmit,
       errors,
       token,
-      userId
+      userId,
+      genres,
+      themeStore
     };
   },
 };

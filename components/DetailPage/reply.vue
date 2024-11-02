@@ -7,8 +7,8 @@
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div class="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
                     <div
-                        class="relative text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
-                        <div class="px-4 pt-5 pb-4 mx-auto overflow-y-auto bg-white rounded-lg"
+                        class="relative text-left transition-all transform rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
+                        <div class="px-4 pt-5 pb-4 mx-auto overflow-y-auto rounded-lg"
                             style="max-height: 400px;">
                             <div class="flex flex-row justify-between ">
                                 <div class="font-mono text-2xl font-bold">Comment</div>

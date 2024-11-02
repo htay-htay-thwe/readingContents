@@ -6,11 +6,17 @@
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div class="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
                     <form @submit.prevent="Submit"
-                        class="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
-                        <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+                    :class="[
+                        'relative text-left transition-all transform rounded-lg top-10 shadow-xl sm:my-8 sm:w-full sm:max-w-lg',
+                        themeStore.mode === true ? 'bg-black text-white' : 'bg-white text-black' // Conditional classes
+                    ]">
+                        <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="sm:flex sm:items-start">
                                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
+                                    <h3 id="modal-title"   :class="[
+                        'text-base font-semibold leading-6 ',
+                        themeStore.mode === true ? ' text-white' : ' text-black' // Conditional classes
+                    ]">
                                         Update Password!</h3>
                                     <div class="mt-2">
                                         <p class="text-sm text-gray-500">Are you sure you want to change your
@@ -47,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="px-4 py-3 bg-gray-50 sm:flex sm:flex-row-reverse sm:px-6">
+                        <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                             <button type="submit"
                                 class="inline-flex justify-center w-full px-3 py-2 text-sm font-semibold text-white bg-green-400 rounded-md shadow-sm hover:text-zinc-600 sm:ml-3 sm:w-auto">Update</button>
                             <button @click="togglePassword()" type="button"
@@ -83,6 +89,7 @@ export default {
     },
     setup(props) {
         const errorMessage = ref('');
+        const themeStore = useThemeStore();
         const token = ref('');
         const schema = Yup.object({
             old: Yup.string().required('*required').min(8, 'oldPassword must be at least 8 characters'),
@@ -127,7 +134,8 @@ export default {
             newPw,
             Submit,
             errors,
-            errorMessage
+            errorMessage,
+            themeStore
         }
     }
 }

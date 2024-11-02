@@ -1,40 +1,34 @@
 <template>
-  <div class="max-w-6xl mx-auto overflow-x-hidden">
+
+  <div v-if="!loading" class="max-w-6xl mx-auto overflow-x-hidden">
     <div class="flex flex-row gap-5 p-5">
 
-      <div>
-        <img :src="`http://localhost:8000/storage/images/${postDetail.writerProfile}`" class="w-10 h-10 rounded-full" />
+      <div class="-mt-2">
+        <img v-if="postDetail.writerProfile === null" :src="Img"
+          class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
+        <img v-else :src="`http://localhost:8000/storage/images/${postDetail.writerProfile}`"
+          class="w-12 h-12 border-2 rounded-full border-zinc-400" />
+        <!-- <img :src="`http://localhost:8000/storage/images/${postDetail.writerProfile}`" class="w-10 h-10 rounded-full" /> -->
       </div>
 
-      <div class="mt-1 underline text-zinc-800">{{ postDetail.userName }}</div>
-          
-    <div class="flex flex-row mt-1 text-zinc-600"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#05E187" class="size-5 mt-0.5">
-  <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
-  <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
-</svg>
+      <div class="mt-1 underline">{{ postDetail.userName }}</div>
 
-{{ postDetail.email }}</div>
+      <div class="flex flex-row mt-1 "> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+          fill="#05E187" class="size-5 mt-0.5">
+          <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+          <path
+            d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+        </svg>
+
+        {{ postDetail.email }}</div>
     </div>
-    <!--     
-    <swiper
-      :slides-per-view="1"
-      :space-between="10"
-      :loop="true"
-      :pagination="{ clickable: true }"
-      :navigation="true"
-      class="mySwiper h-[500px]"
-    >
-      <swiper-slide v-for="(image, index) in postDetail.images" :key="index">
-        <div class="flex flex-col items-center w-full h-full p-4 bg-white rounded-lg shadow-lg">
-          <img :src="image.image" class="object-cover w-full h-full mb-2 rounded-lg" />
-        </div>
-      </swiper-slide>
-    </swiper> -->
 
-    <img :src="ImgI" class="float-left w-2/3 h-[450px] space-x-13 mr-4" />
-    <div class="absolute bottom-0 flex flex-row gap-5 left-20">
+    <DetailPageSimpleCarousel :postDetail="postDetail" class="float-left" />
+    <p class="pl-4 ml-2 text-balance" v-html="postDetail.content"></p>
+
+    <div class="flex flex-row max-w-sm mt-10 mb-5">
       <div
-        class="flex flex-row justify-center w-32 gap-2 p-1 mx-auto bg-white border-2 border-gray-200 rounded-full shadow-lg">
+        class="flex flex-row justify-center w-32 gap-2 p-1 mx-auto border-2 border-gray-200 rounded-full shadow-lg">
         <div v-if="postDetail.like !== 0" @click="like(postDetail.id)" class="scale-100 hover:scale-105"><svg
             xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
             <path fill="currentColor"
@@ -59,27 +53,29 @@
         </div>
       </div>
 
-      <div class="flex gap-2 mt-1">
+      <div class="flex gap-2 mt-2">
         <div class="font-mono text-lg font-bold">Views</div>
         <div class="font-mono text-lg font-bold">{{ postDetail.views }}</div>
       </div>
     </div>
-    <div v-html="postDetail.content"></div>
 
     <br />
-    <div class="max-w-2xl mx-auto">
+
+    <div class="max-w-3xl mx-auto">
       <div class="flex flex-row gap-4 mt-3">
         <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
-        class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-        <img :src="userData.image" class="w-12 h-12 border-2 rounded-full border-zinc-400" />
-        <div><textarea v-model="comment" name="comment" class="border-2 rounded-md border-zinc-500" cols="80" rows="5"
+          class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
+        <img v-else :src="userData.image" class="w-12 h-12 border-2 rounded-full border-zinc-400" />
+        <div>
+          <textarea v-model="comment" name="comment" class="border-2 rounded-md border-zinc-500" cols="80" rows="5"
             placeholder="Enter Comment here..."></textarea></div>
       </div>
       <div class="text-red-500 ml-14" v-if="errors.comment">{{ errors.comment }}</div>
-      <div class="flex justify-end">
+      <div class="flex justify-end mr-20">
         <button @click="onSubmit" type="button" class="w-24 p-2 text-center bg-green-400 rounded-lg ">Comment</button>
       </div>
     </div>
+
 
     <div class="font-serif text-3xl font-semibold mb-7">Comment Sections</div>
     <div v-for="(comment, index) in commentData?.comments" :key="index" class="">
@@ -188,17 +184,15 @@
       </div>
     </div>
 
-
-
-
-
     <DetailPageReply :getProfile="getProfile" :replyToggle="replyToggle" :replyDrop="replyDrop" :postId="postId"
       :parentId="parentId" :Detail="Detail" />
 
   </div>
+
 </template>
 
 <script>
+import 'flowbite';
 import Img from "@/assets/img/default.jpg";
 import ImgI from "@/assets/img/first_img.png";
 import axios from "axios";
@@ -206,11 +200,8 @@ import { ref, onMounted } from "vue";
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
 // import { Swiper, SwiperSlide } from 'swiper/vue';
+// import { Pagination, Navigation } from 'swiper/modules';
 // import 'swiper/swiper-bundle.css';
-// import { Pagination, Navigation } from 'swiper';
-// Registering Swiper modules
-import { register } from 'swiper/element-bundle';
-register();
 
 export default {
   props: {
@@ -220,6 +211,10 @@ export default {
     },
     getProfile: {
       type: Function,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
       required: true,
     },
   },
@@ -243,6 +238,7 @@ export default {
     });
 
     const { value: comment } = useField('comment');
+
 
     // Create a method to handle form submission
     const onSubmit = handleSubmit(async (values) => {
@@ -296,6 +292,7 @@ export default {
         }
         themeStore.getDetailPost(res.data.readPost);
         postDetail.value = themeStore.detail;
+        console.log(postDetail.value.images);
       });
     };
 
@@ -366,6 +363,8 @@ export default {
       commentData.value = newPosts;
     });
 
+
+
     const formatTime = (date) => {
       const now = new Date();
       const seconds = Math.floor((now - new Date(date)) / 1000);
@@ -389,6 +388,7 @@ export default {
     }
 
     onMounted(() => {
+
       token.value = localStorage.getItem("token");
       userData.value = JSON.parse(localStorage.getItem("user"));
       Id.value = userData.value.id;
@@ -417,7 +417,10 @@ export default {
       parentId,
       Detail,
       userData,
-      formatTime
+      formatTime,
+      // Swiper,
+      // SwiperSlide,
+      // modules: [Pagination, Navigation]
       // Swiper,
       // SwiperSlide,
       // Pagination,
@@ -426,3 +429,16 @@ export default {
   },
 };
 </script>
+<style scoped>
+/* @import '~swiper/swiper-bundle.css'; */
+.mySwiper {
+  height: 300px;
+  /* Adjust height as needed */
+}
+
+.mySwiper img {
+  width: 100%;
+  /* Make images responsive */
+  height: auto;
+}
+</style>

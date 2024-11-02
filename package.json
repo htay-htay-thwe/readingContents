@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@heroicons/vue": "^1.0.6",
+    "@nuxtjs/color-mode": "^3.5.2",
     "@pinia/nuxt": "^0.5.5",
     "@tiptap/core": "^2.8.0",
     "@tiptap/starter-kit": "^2.8.0",
@@ -17,12 +19,17 @@
     "@vee-validate/yup": "^4.14.3",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
+    "aos": "^2.3.4",
     "axios": "^1.7.7",
+    "flowbite": "^2.5.2",
+    "globby": "^13.2.2",
+    "notiflix": "^3.2.7",
     "nuxt": "^3.13.2",
-    "nuxt-swiper": "^1.0.1",
+    "nuxt-aos": "^1.2.5",
     "pinia": "^2.2.4",
     "swiper": "^11.1.14",
     "tailwindcss": "^3.4.14",
+    "unicorn-magic": "^0.3.0",
     "vee-validate": "^4.14.3",
     "vue": "latest",
     "vue-router": "latest",
@@ -30,5 +37,8 @@
   },
   "overrides": {
     "vue": "latest"
+  },
+  "devDependencies": {
+    "npm-force-resolutions": "^0.0.10"
   }
 }

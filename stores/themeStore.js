@@ -12,7 +12,8 @@ export const useThemeStore = defineStore('theme', {
     save:{},
     user:{},
     detail:{},
-    comment:[]
+    comment:[],
+    mode:''
   }),
   actions: {
     toggleTheme() {
@@ -44,6 +45,9 @@ export const useThemeStore = defineStore('theme', {
     },
     getComment(com){
       this.comment = com;
+    },
+    getMode(com){
+      this.mode = com;
     }
   },
 });

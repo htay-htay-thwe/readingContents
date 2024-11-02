@@ -3,20 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   css: [
+    'flowbite/dist/flowbite.css', // Add this line
     '~/assets/css/main.css',
-    'swiper/swiper-bundle.css', // Ensure this is included for Swiper styles
+    'aos/dist/aos.css',
   ],
-  modules: [
-    '@pinia/nuxt',
-    '@vee-validate/nuxt',
-    'nuxt-swiper', // Add this line to include the nuxt-swiper module
-  ],
-  swiper: {
-    // Add any optional Swiper configuration here
-    prefix: 'Swiper',
-    styleLang: 'css',
-    modules: ['pagination', 'navigation'], // Ensure these modules are included
-  },
+  modules: ['@pinia/nuxt', '@vee-validate/nuxt', '@nuxtjs/color-mode'],
   veeValidate: {
     autoImports: true,
     componentNames: {
@@ -30,8 +21,12 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
+      
     },
   },
+  plugins: [
+    '~/plugins/aos.js', // Add this line to register the AOS plugin
+  ],
   pinia: {
     storesDirs: ['./stores/**', './custom-folder/stores/**'],
   },

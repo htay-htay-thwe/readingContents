@@ -1,18 +1,28 @@
 <template>
     <div>
         <Navbar />
-        <ProfileImgProfile :userId="userId" :getProfile="getProfile"/>
+        <ProfileImgProfile :loading="loading" :userId="userId" :getProfile="getProfile"/>
+        <div v-if="loading"  class="flex items-center justify-center h-screen">
+          <div class="flex gap-2">
+    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+</div>
+</div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 export default {
     setup() {
     const route = useRoute();
     const userId = route.params.id; 
     const themeStore = useThemeStore();
+    const loading = ref(false);
     const token = ref('');
+
 
     const getProfile = async () => {
       token.value = localStorage.getItem('token');
@@ -20,12 +30,14 @@ export default {
       // Id.value = userData.id;
       // const userId = Number(Id.value);
       // console.log('userId',userId);
+      loading.value = true;
       try {
         await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token.value}` // Add the token to the headers
           }
         }).then((res) => {
+          loading.value = false;
           res.data.post.forEach(post => {
             if (post.images && post.images.length > 0) {
               post.images.forEach((img, index) => {
@@ -61,14 +73,25 @@ export default {
           themeStore.getSave(res.data.save);
         });
       } catch (error) {
-        console.error('Error fetching profile:', error);
+        if (error.response && error.response.status === 401) {
+          Report.warning(
+            'Notiflix Warning',
+            'Please log in again!',
+            'Login',
+            () => {
+              navigateTo('/loginPage');
+            }
+          );
+        }
       } 
     };
 
     return {
       userId,
       getProfile,
-      token
+      token,
+      loading
+   
     };
   }
 
