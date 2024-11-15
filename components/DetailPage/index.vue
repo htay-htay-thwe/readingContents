@@ -3,18 +3,19 @@
   <div v-if="!loading" class="max-w-6xl mx-auto overflow-x-hidden">
     <div class="flex flex-row gap-5 p-5">
 
-      <div class="-mt-2">
+      <nuxt-link class="-mt-2" :to="`/profile/${postDetail.userId}`">
         <img v-if="postDetail.writerProfile === null" :src="Img"
-          class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
+          class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg animate-glow-border" />
         <img v-else :src="`http://localhost:8000/storage/images/${postDetail.writerProfile}`"
-          class="w-12 h-12 border-2 rounded-full border-zinc-400" />
-        <!-- <img :src="`http://localhost:8000/storage/images/${postDetail.writerProfile}`" class="w-10 h-10 rounded-full" /> -->
-      </div>
+          class="w-12 h-12 border-2 rounded-full shadow-lg animate-glow-border" />
+      </nuxt-link>
+
+
 
       <div class="mt-1 underline">{{ postDetail.userName }}</div>
 
-      <div class="flex flex-row mt-1 "> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-          fill="#05E187" class="size-5 mt-0.5">
+      <div class="flex flex-row mt-1 "> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#05E187"
+          class="size-5 mt-0.5">
           <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
           <path
             d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
@@ -24,11 +25,11 @@
     </div>
 
     <DetailPageSimpleCarousel :postDetail="postDetail" class="float-left" />
+    <div class="font-mono text-4xl font-semibold leading-snug text-green-500">{{ postDetail.title }}</div>
     <p class="pl-4 ml-2 text-balance" v-html="postDetail.content"></p>
 
     <div class="flex flex-row max-w-sm mt-10 mb-5">
-      <div
-        class="flex flex-row justify-center w-32 gap-2 p-1 mx-auto border-2 border-gray-200 rounded-full shadow-lg">
+      <div class="flex flex-row justify-center w-32 gap-2 p-1 mx-auto border-2 border-gray-200 rounded-full shadow-lg">
         <div v-if="postDetail.like !== 0" @click="like(postDetail.id)" class="scale-100 hover:scale-105"><svg
             xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
             <path fill="currentColor"
@@ -61,20 +62,34 @@
 
     <br />
 
-    <div class="max-w-3xl mx-auto">
-      <div class="flex flex-row gap-4 mt-3">
+    <div class="max-w-3xl mx-auto px-4">
+      <!-- Container for comment and image -->
+      <div class="flex flex-col sm:flex-row gap-4 mt-3">
+        <!-- Profile Image -->
         <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
-          class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-        <img v-else :src="userData.image" class="w-12 h-12 border-2 rounded-full border-zinc-400" />
-        <div>
-          <textarea v-model="comment" name="comment" class="border-2 rounded-md border-zinc-500" cols="80" rows="5"
-            placeholder="Enter Comment here..."></textarea></div>
+          class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg sm:w-12 sm:h-12 md:w-16 md:h-16" />
+        <img v-else :src="userData.image"
+          class="w-12 h-12 border-2 rounded-full border-zinc-400 sm:w-14 sm:h-14 md:w-16 md:h-16" />
+
+        <!-- Comment Input -->
+        <div class="flex-1">
+          <textarea v-model="comment" name="comment"
+            class="border-2 rounded-md border-zinc-500 w-full sm:w-80 md:w-full" cols="80" rows="5"
+            placeholder="Enter Comment here..."></textarea>
+        </div>
       </div>
-      <div class="text-red-500 ml-14" v-if="errors.comment">{{ errors.comment }}</div>
-      <div class="flex justify-end mr-20">
-        <button @click="onSubmit" type="button" class="w-24 p-2 text-center bg-green-400 rounded-lg ">Comment</button>
+
+      <!-- Error message (if any) -->
+      <div class="text-red-500 ml-14 mt-2" v-if="errors.comment">{{ errors.comment }}</div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-end mt-4 sm:mr-10 md:mr-20">
+        <button @click="onSubmit" type="button" class="w-24 p-2 text-center bg-green-400 rounded-lg">
+          Comment
+        </button>
       </div>
     </div>
+
 
 
     <div class="font-serif text-3xl font-semibold mb-7">Comment Sections</div>
@@ -90,6 +105,7 @@
             <div class="font-mono">{{ comment.comment }}</div>
           </div>
           <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
+            <div v-if="Id === comment.user.id" @click="deleteCom(comment.id)" class="hover:text-zinc-400">Delete</div>
             <div @click="replyDrop(comment.id)" class="hover:text-zinc-400">Reply</div>
             <div class="underline text-end text-zinc-400">{{ formatTime(comment.updated_at) }}</div>
           </div>
@@ -109,6 +125,8 @@
                 <div class="font-mono">{{ replyOne.comment }}</div>
               </div>
               <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
+                <div v-if="Id === comment.user.id" @click="deleteCom(replyOne.id)" class="hover:text-zinc-400">Delete
+                </div>
                 <div @click="replyDrop(replyOne.id)" class="hover:text-zinc-400">Reply</div>
                 <div class="underline text-end text-zinc-400">{{ formatTime(replyOne.updated_at) }}</div>
               </div>
@@ -129,6 +147,8 @@
                     <div class="font-mono">{{ replyTwo.comment }}</div>
                   </div>
                   <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
+                    <div v-if="Id === comment.user.id" @click="deleteCom(replyTwo.id)" class="hover:text-zinc-400">
+                      Delete</div>
                     <div @click="replyDrop(replyTwo.id)" class="hover:text-zinc-400">Reply</div>
                     <div class="underline text-end text-zinc-400">{{ formatTime(replyTwo.updated_at) }}</div>
                   </div>
@@ -149,6 +169,8 @@
                         <div class="font-mono">{{ replyThree.comment }}</div>
                       </div>
                       <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
+                        <div v-if="Id === comment.user.id" @click="deleteCom(replyThree.id)"
+                          class="hover:text-zinc-400">Delete</div>
                         <div @click="replyDrop(replyThree.id)" class="hover:text-zinc-400">Reply</div>
                         <div class="underline text-end text-zinc-400">{{ formatTime(replyThree.updated_at) }}</div>
                       </div>
@@ -169,6 +191,8 @@
                             <div class="font-mono">{{ replyFour.comment }}</div>
                           </div>
                           <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
+                            <div v-if="Id === comment.user.id" @click="deleteCom(replyFour.id)"
+                              class="hover:text-zinc-400">Delete</div>
                             <div @click="replyDrop(replyFour.id)" class="hover:text-zinc-400">Reply</div>
                             <div class="underline text-end text-zinc-400">{{ formatTime(replyFour.updated_at) }}</div>
                           </div>
@@ -199,11 +223,10 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-// import { Swiper, SwiperSlide } from 'swiper/vue';
-// import { Pagination, Navigation } from 'swiper/modules';
-// import 'swiper/swiper-bundle.css';
+import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 
 export default {
+  layout: 'default' ,
   props: {
     postId: {
       type: String,
@@ -355,6 +378,34 @@ export default {
       await Detail();
     }
 
+    const deleteCom = async (commentId) => {
+      token.value = localStorage.getItem("token");
+      Confirm.show(
+        'Delete Comment',
+        'Are you sure to delete Comment?',
+        'Yes',
+        'No',
+        async () => {
+          await axios.get(`http://localhost:8000/api/basic-ui/delete/comment/${commentId}/${props.postId}`, {
+            headers: {
+              Authorization: `Bearer ${token.value}`,
+            },
+          }).then(async (res) => {
+            themeStore.getComment(res.data.comment);
+            commentData.value = themeStore.comment;
+            console.log(commentData.value);
+            await props.getProfile();
+            await Detail();
+          })
+        },
+        () => {
+
+        },
+        {
+        },
+      )
+    }
+
     watch(() => themeStore.detail, (newPosts) => {
       postDetail.value = newPosts;
     });
@@ -418,13 +469,7 @@ export default {
       Detail,
       userData,
       formatTime,
-      // Swiper,
-      // SwiperSlide,
-      // modules: [Pagination, Navigation]
-      // Swiper,
-      // SwiperSlide,
-      // Pagination,
-      // Navigation
+      deleteCom
     };
   },
 };

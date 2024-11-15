@@ -26,10 +26,6 @@ export default {
 
     const getProfile = async () => {
       token.value = localStorage.getItem('token');
-      // const userData = JSON.parse(localStorage.getItem('user'));
-      // Id.value = userData.id;
-      // const userId = Number(Id.value);
-      // console.log('userId',userId);
       loading.value = true;
       try {
         await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {

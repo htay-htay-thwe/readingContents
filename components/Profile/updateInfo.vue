@@ -74,7 +74,7 @@ export default {
             Required: true
         },
         userId: {
-            type: Number,
+            type: String,
             required: true, // This prop is required
         },
     },

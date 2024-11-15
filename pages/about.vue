@@ -105,12 +105,6 @@ export default {
       return postData.value.slice(startIndex, endIndex);
     });
 
-    // onMounted(() => {
-    //   const userData = JSON.parse(localStorage.getItem('user'));
-    //   Id.value = userData.id;
-    //   token.value = localStorage.getItem('token');
-
-    // });
 
     return {
       Id,

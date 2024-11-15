@@ -2,8 +2,9 @@
     <div>
         <div class="p-5 shadow-xl ">
             <div class="flex flex-row justify-between max-w-5xl mx-auto text-xl">
-                <div class="mt-1">
-                    POSTS
+                <div class="mt-1 font-semibold font-serif flex space-x-3">
+                  <div><img :src="logo" class="w-8"/></div>
+                  <div>LwHa<span class="text-green-700">EE</span></div>
                 </div>
 
                 <div class="flex-row hidden gap-8 sm:flex">
@@ -55,7 +56,7 @@
                                 </button>
                             </div>
                             <div v-show="toggle"
-                                class="absolute z-10 w-56 mt-4 origin-top-right bg-white border-2 rounded-md shadow-lg -right-24 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                class="absolute transition-opacity duration-1000 ease-in-out z-10 w-56 mt-4 origin-top-right bg-white border-2 rounded-md shadow-lg -right-24 ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                                 <div class="py-1" role="none">
                                     <nuxt-link :to="`/profile/${userId}`"
@@ -119,8 +120,8 @@
                     <NavbarToggleMode />
                 </div>
 
-                <div class="flex flex-row gap-6 sm:hidden">
-                    <NavbarToggleMode />
+                <div class="flex flex-row gap-5 sm:hidden">
+                    <NavbarToggleMode  class="mb-0.5"/>
                     <div>
                         <div class="relative inline-block mt-1 text-xl text-left">
                             <div>
@@ -250,7 +251,7 @@
 
         <NavbarChangePw :togglePassword="togglePassword" :showPw="showPw" :userId="userId" />
 
-        <div v-show="saveToggle" class="relative z-10 max-w-4xl mx-auto" aria-labelledby="modal-title" role="dialog"
+        <div v-show="saveToggle" class="relative opacity-100 transition-opacity duration-1000 ease-in-out z-10 max-w-4xl mx-auto" aria-labelledby="modal-title" role="dialog"
             aria-modal="true">
             <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
             <div class="absolute right-0 z-10 w-screen">
@@ -313,6 +314,7 @@
 
 <script>
 import Img from "@/assets/img/default.jpg"
+import logo from "@/assets/img/social-media.png"
 import { ref } from 'vue'
 import axios from 'axios';
 import changePw from './changePw.vue';
@@ -417,7 +419,8 @@ export default {
             Img,
             themeStore,
             navDrop,
-            navToggle
+            navToggle,
+            logo
         }
     }
 

@@ -81,16 +81,13 @@ export default {
         showPw: {
             type: Boolean,
             required: true
-        },
-        userId: {
-            type: Number,
-            required: true
         }
     },
     setup(props) {
         const errorMessage = ref('');
         const themeStore = useThemeStore();
         const token = ref('');
+        const userId = ref(null);
         const schema = Yup.object({
             old: Yup.string().required('*required').min(8, 'oldPassword must be at least 8 characters'),
             newPw: Yup.string().required('*required').min(8, 'newPassword must be at least 8 characters'),
@@ -127,6 +124,8 @@ export default {
             old.value = '';
             newPw.value = '';
             errorMessage.value ='';
+            const userData = JSON.parse(localStorage.getItem('user'));
+            userId.value = userData.id;
         });
 
         return {
@@ -135,7 +134,8 @@ export default {
             Submit,
             errors,
             errorMessage,
-            themeStore
+            themeStore,
+            userId
         }
     }
 }

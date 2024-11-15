@@ -2,13 +2,12 @@
     <div>
         <Navbar />
         <DetailPage :loading="loading" :postId="postId" :getProfile="getProfile" />
-        <div v-if="loading"  class="flex items-center justify-center h-screen">
-            <div class='flex items-center justify-center h-screen space-x-2 bg-white dark:invert'>
- 	<span class='sr-only'>Loading...</span>
-  	<div class='h-3 w-3 bg-green-400 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
-	<div class='h-3 w-3 bg-green-400 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
-	<div class='w-3 h-3 bg-green-400 rounded-full animate-bounce'></div>
-</div>
+        <div v-if="loading" class="flex items-center justify-center h-screen">
+            <div class="flex gap-2">
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -73,15 +72,15 @@ export default {
                 });
             } catch (error) {
                 if (error.response && error.response.status === 401) {
-          Report.warning(
-            'Notiflix Warning',
-            'Please log in again!',
-            'Login',
-            () => {
-                navigateTo('/loginPage');
-            }
-          );
-        }
+                    Report.warning(
+                        'Notiflix Warning',
+                        'Please log in again!',
+                        'Login',
+                        () => {
+                            navigateTo('/loginPage');
+                        }
+                    );
+                }
             }
         };
         return {

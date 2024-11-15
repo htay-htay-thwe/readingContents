@@ -1,37 +1,43 @@
 <template>
   <div>
+    <!-- Button to toggle between light and dark mode -->
     <button @click="toggleMode"
       class="flex items-center justify-center w-10 h-10 transition-colors rounded-full focus:outline-none"
       aria-label="Toggle light/dark mode">
-      <component :is="isDarkMode ? 'SunIcon' : 'MoonIcon'" class="w-6 h-6" />
+      
+      <!-- Dynamically render SunIcon or MoonIcon based on dark mode state -->
+      <component :is="isDarkMode ? SunIcon : MoonIcon" class="w-6 h-6" />
     </button>
-    <div>
-    </div>
   </div>
 </template>
 
 <script>
-import { SunIcon, MoonIcon } from '@heroicons/vue/outline'; // Use outline icons from v1
+import { SunIcon, MoonIcon } from '@heroicons/vue/outline'; // Import icons
 
 export default {
   components: {
-    SunIcon,
-    MoonIcon,
+    SunIcon, // Sun Icon component
+    MoonIcon, // Moon Icon component
   },
   data() {
     return {
-      isDarkMode: false,
+      isDarkMode: false, // Initialize dark mode state
     };
   },
   setup() {
     const themeStore = useThemeStore();
     const isDarkMode = ref(false);
+
+    // Toggle the dark mode on and off
     const toggleMode = () => {
       isDarkMode.value = !isDarkMode.value;
+      console.log('Dark mode toggled:', isDarkMode.value); // Debugging log
       updateBodyClass();
-      localStorage.setItem('darkMode', isDarkMode.value);
-      themeStore.getMode(isDarkMode.value);
+      localStorage.setItem('darkMode', isDarkMode.value); // Persist dark mode preference
+      themeStore.getMode(isDarkMode.value); // Store dark mode in theme store (if needed)
     };
+
+    // Update the body class to apply dark mode styles
     const updateBodyClass = () => {
       if (isDarkMode.value) {
         document.body.classList.add('dark');
@@ -39,43 +45,41 @@ export default {
         document.body.classList.remove('dark');
       }
     };
+
+    // On mounted, check for saved dark mode preference
     onMounted(() => {
       const storedMode = localStorage.getItem('darkMode');
-      isDarkMode.value = storedMode === 'true'; // Set isDarkMode based on local storage
+      isDarkMode.value = storedMode === 'true'; // Set dark mode based on saved preference
+      console.log('Dark mode on mounted:', isDarkMode.value); // Debugging log
       updateBodyClass(); // Update body class on mount
     });
+
     return {
       themeStore,
-      toggleMode
-    }
+      isDarkMode,
+      toggleMode,
+      SunIcon, // Expose icon components to template
+      MoonIcon,
+    };
   },
 };
 </script>
 
 <style>
+/* Transition effect for background color */
 body {
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Dark mode styles */
 body.dark {
-  background-color: #1a1a1a;
-  color: #f5f5f5;
+  background-color: #1a1a1a; /* Dark background */
+  color: #f5f5f5; /* Light text */
 }
 
+/* Light mode styles */
 body {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-.toggle-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-  transition: color 0.3s ease;
-}
-
-.toggle-button:hover {
-  color: #007bff;
+  background-color: #ffffff; /* Light background */
+  color: #000000; /* Dark text */
 }
 </style>

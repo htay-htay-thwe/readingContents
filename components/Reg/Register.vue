@@ -32,9 +32,9 @@
         <label class="block mb-2 text-lg font-bold text-gray-700" for="password">
           Password
         </label>
-        <input v-model="password" name="password"
+        <input type="password"  v-model="password" name="password"
           class="w-full px-4 py-3 mb-3 leading-tight text-gray-700 border border-gray-500 rounded-lg shadow appearance-none focus:outline-none focus:shadow-outline"
-          id="password" type="password" placeholder="******************" />
+          id="password"  placeholder="Enter password" />
         <span v-if="errors.password" class="text-red-400">{{ errors.password }}</span>
       </div>
 
