@@ -2,6 +2,7 @@
     <div>
         <Navbar/>
         <MainPageCreate />
+        <Footer />
     </div>
 </template>
 

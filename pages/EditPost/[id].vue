@@ -2,6 +2,7 @@
     <div>
         <Navbar />
         <MainPageEdit :postId="postId"/>
+        <Footer />
     </div>
 </template>
 

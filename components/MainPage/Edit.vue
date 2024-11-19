@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="max-w-3xl p-4 mx-auto mt-10 space-y-10 font-mono">
-            <div class="mb-10 font-mono text-2xl font-bold">Create Posts</div>
+            <div class="mb-10 font-mono text-2xl font-bold">Edit Posts</div>
 
             <div class="mb-4">
                 <label class="block mb-2 text-sm font-bold text-gray-700" for="genre">

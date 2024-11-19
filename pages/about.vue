@@ -3,6 +3,7 @@
     <Navbar :getProfile="getProfile" />
     <MainPagePosts :loading="loading" :initialPaginatedPosts="initialPaginatedPosts" :getProfile="getProfile" :postData="postData" />
     <MainPagePagination :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
+    <Footer />
 
     <div v-if="loading" class="flex items-center justify-center h-screen"><div class="absolute w-12 h-12 border-4 border-t-4 border-green-400 rounded-md animate-spin"></div>.</div>
   </div>
