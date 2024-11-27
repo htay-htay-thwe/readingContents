@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="!loading" class="max-w-6xl mx-auto overflow-x-hidden">
+  <div v-if="!loading" class="max-w-6xl mx-auto mb-20 overflow-x-hidden">
     <div class="flex flex-row gap-5 p-5">
 
       <nuxt-link class="-mt-2" :to="`/profile/${postDetail.userId}`">
@@ -62,9 +62,9 @@
 
     <br />
 
-    <div class="max-w-3xl mx-auto px-4">
+    <div class="max-w-3xl px-4 mx-auto">
       <!-- Container for comment and image -->
-      <div class="flex flex-col sm:flex-row gap-4 mt-3">
+      <div class="flex flex-col gap-4 mt-3 sm:flex-row">
         <!-- Profile Image -->
         <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
           class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg sm:w-12 sm:h-12 md:w-16 md:h-16" />
@@ -74,13 +74,13 @@
         <!-- Comment Input -->
         <div class="flex-1">
           <textarea v-model="comment" name="comment"
-            class="border-2 rounded-md border-zinc-500 w-full sm:w-80 md:w-full" cols="80" rows="5"
+            class="w-full border-2 rounded-md border-zinc-500 sm:w-80 md:w-full" cols="80" rows="5"
             placeholder="Enter Comment here..."></textarea>
         </div>
       </div>
 
       <!-- Error message (if any) -->
-      <div class="text-red-500 ml-14 mt-2" v-if="errors.comment">{{ errors.comment }}</div>
+      <div class="mt-2 text-red-500 ml-14" v-if="errors.comment">{{ errors.comment }}</div>
 
       <!-- Submit Button -->
       <div class="flex justify-end mt-4 sm:mr-10 md:mr-20">
@@ -93,7 +93,7 @@
 
 
     <div class="font-serif text-3xl font-semibold mb-7">Comment Sections</div>
-    <div v-for="(comment, index) in commentData?.comments" :key="index" class="">
+    <div v-for="(comment, index) in commentData?.comments" :key="index" class="mb-5">
       <div class="flex flex-row max-w-4xl mx-auto mb-2 space-x-3">
         <img v-if="comment.user.image == null" :src="Img"
           class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
@@ -125,7 +125,7 @@
                 <div class="font-mono">{{ replyOne.comment }}</div>
               </div>
               <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
-                <div v-if="Id === comment.user.id" @click="deleteCom(replyOne.id)" class="hover:text-zinc-400">Delete
+                <div v-if="Id === replyOne.user.id" @click="deleteCom(replyOne.id)" class="hover:text-zinc-400">Delete
                 </div>
                 <div @click="replyDrop(replyOne.id)" class="hover:text-zinc-400">Reply</div>
                 <div class="underline text-end text-zinc-400">{{ formatTime(replyOne.updated_at) }}</div>
@@ -147,7 +147,7 @@
                     <div class="font-mono">{{ replyTwo.comment }}</div>
                   </div>
                   <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
-                    <div v-if="Id === comment.user.id" @click="deleteCom(replyTwo.id)" class="hover:text-zinc-400">
+                    <div v-if="Id === replyTwo.user.id" @click="deleteCom(replyTwo.id)" class="hover:text-zinc-400">
                       Delete</div>
                     <div @click="replyDrop(replyTwo.id)" class="hover:text-zinc-400">Reply</div>
                     <div class="underline text-end text-zinc-400">{{ formatTime(replyTwo.updated_at) }}</div>
@@ -169,7 +169,7 @@
                         <div class="font-mono">{{ replyThree.comment }}</div>
                       </div>
                       <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
-                        <div v-if="Id === comment.user.id" @click="deleteCom(replyThree.id)"
+                        <div v-if="Id === replyThree.user.id" @click="deleteCom(replyThree.id)"
                           class="hover:text-zinc-400">Delete</div>
                         <div @click="replyDrop(replyThree.id)" class="hover:text-zinc-400">Reply</div>
                         <div class="underline text-end text-zinc-400">{{ formatTime(replyThree.updated_at) }}</div>
@@ -191,7 +191,7 @@
                             <div class="font-mono">{{ replyFour.comment }}</div>
                           </div>
                           <div class="flex flex-row justify-end w-full mt-2 space-x-4 font-mono">
-                            <div v-if="Id === comment.user.id" @click="deleteCom(replyFour.id)"
+                            <div v-if="Id === replyFour.user.id" @click="deleteCom(replyFour.id)"
                               class="hover:text-zinc-400">Delete</div>
                             <div @click="replyDrop(replyFour.id)" class="hover:text-zinc-400">Reply</div>
                             <div class="underline text-end text-zinc-400">{{ formatTime(replyFour.updated_at) }}</div>
@@ -271,14 +271,12 @@ export default {
       const userId = Number(Id.value);
       const postId = Number(props.postId);
       const comment = values.comment;
-      console.log('comment', comment);
       const parentId = 1;
       await axios.get(`http://localhost:8000/api/basic-ui/create/comment/${postId}/${parentId}/${userId}/${comment}`, {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
       }).then(async (res) => {
-        console.log(res.data);
         themeStore.getComment(res.data.comment);
         commentData.value = themeStore.comment;
         resetForm();
@@ -315,7 +313,6 @@ export default {
         }
         themeStore.getDetailPost(res.data.readPost);
         postDetail.value = themeStore.detail;
-        console.log(postDetail.value.images);
       });
     };
 
@@ -373,7 +370,6 @@ export default {
       });
       themeStore.getComment(res.data.comment);
       commentData.value = themeStore.comment;
-      console.log(commentData.value);
       await props.getProfile();
       await Detail();
     }
@@ -393,7 +389,6 @@ export default {
           }).then(async (res) => {
             themeStore.getComment(res.data.comment);
             commentData.value = themeStore.comment;
-            console.log(commentData.value);
             await props.getProfile();
             await Detail();
           })
@@ -414,8 +409,6 @@ export default {
       commentData.value = newPosts;
     });
 
-
-
     const formatTime = (date) => {
       const now = new Date();
       const seconds = Math.floor((now - new Date(date)) / 1000);
@@ -432,7 +425,7 @@ export default {
       interval = Math.floor(seconds / 3600);
       if (interval > 1) return `${interval}h ago`;
 
-      interval = Math.floor(seconds / 60);
+      interval = Math.round(seconds / 60);
       if (interval > 1) return `${interval}min ago`;
 
       return seconds < 2 ? "Just now" : `${seconds}sec ago`;

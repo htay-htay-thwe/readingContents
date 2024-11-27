@@ -83,7 +83,6 @@ export default {
         email: values.email,
         password: values.password
       }
-      console.log(data);
       try {
         const res = await axios.post('http://localhost:8000/api/userAuth/create/user', data);
         themeStore.getUser(res.data.user);

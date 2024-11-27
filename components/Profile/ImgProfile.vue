@@ -1,8 +1,6 @@
 <template>
     <div v-if="!loading">
-      
         <div  class="flex flex-col max-w-xl gap-10 mx-auto mt-10 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl sm:flex-row">
-
             <div class="gap-10 mx-auto mt-10 " v-if="userId == userData.id">
                 <div class="w-40 h-40 mx-auto mb-3 rounded-full ">
                     <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
@@ -40,16 +38,21 @@
                         Photo</button></div>
 
             </div> 
-
             <div class="w-2/3 mx-auto sm:w-full">
                 <div class="px-4 pb-4 pl-4">
-                    <div class="flex space-x-4">
+                    <div class="flex space-x-4" v-if="userId == userData.id">
                         <button v-for="(tab, index) in tabs" :key="index" @click="selectTab(tab)"
                             class="px-4 py-2 text-lg font-semibold transition-colors duration-300" :class="{
                                 'border-b-2 border-green-400 text-green-400': tab === activeTab,
                                 'text-gray-600 hover:text-green-400': tab !== activeTab,
                             }">
                             {{ tab }}
+                        </button>
+                    </div>
+                    <div v-else>
+                     <button
+                            class="px-4 py-2 text-lg font-semibold text-green-400 transition-colors duration-300 border-b-2 border-green-400" >
+                           Posts
                         </button>
                     </div>
 
@@ -116,7 +119,6 @@
                                                     class="block px-4 py-2 text-sm text-gray-700 hover:text-black"
                                                     role="menuitem" tabindex="-1" id="menu-item-1">Permanately
                                                     Delete</div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -363,14 +365,12 @@ export default {
         const getProfile = async () => {
             token.value = localStorage.getItem('token');
             const userId = props.userId;
-            console.log(props.userId);
             try {
                 await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${token.value}` // Add the token to the headers
                     }
                 }).then((res) => {
-                    console.log(res.data);
                     res.data.post.forEach(post => {
                         if (post.images && post.images.length > 0) {
                             post.images.forEach((img, index) => {
@@ -399,7 +399,6 @@ export default {
                             });
                         }
                     });
-                    console.log(res.data.postAuth);
                     themeStore.getPosts(res.data.post);
                     themeStore.getProfilePost(res.data.postAuth);
                     themeStore.getDeletedPost(res.data.deletedPosts);
@@ -408,7 +407,6 @@ export default {
                     postData.value = themeStore.profilePost;
                     deletePost.value = themeStore.deletedPost;
                     dataShow.value = false;
-                    console.log('hello world');
                 });
             } catch (error) {
                 if (error.response && error.response.status === 401) {

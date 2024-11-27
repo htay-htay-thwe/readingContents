@@ -1,8 +1,8 @@
 <template>
     <div class="relative h-screen mx-auto">
         <Navbar />
-        <ProfileImgProfile :loading="loading" :userId="userId" :getProfile="getProfile"/>
-        <Footer class="absolute bottom-0 w-full"/>
+        <ProfileImgProfile class="p-2 mb-5" :loading="loading" :userId="userId" :getProfile="getProfile"/>
+        <Footer class="fixed bottom-0 w-full"/>
         <div v-if="loading"  class="flex items-center justify-center h-screen">
           <div class="flex gap-2">
     <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>

@@ -99,7 +99,6 @@ export default {
             formData.append('userName', values.userName);
             formData.append('email', values.email);
             formData.append('userId', props.userId);
-            console.log(values);
             try {
                 const res = await axios.post(`http://localhost:8000/api/userAuth/update/user/information`, formData, {
                     headers: {
@@ -111,7 +110,6 @@ export default {
                 if (res.data.user.image !== null) {
                     res.data.user.image = 'http://localhost:8000/storage/images/' + res.data.user.image;
                 }
-                console.log(res.data.user);
                 themeStore.getUser(res.data.user);
                 localStorage.setItem('user', JSON.stringify(res.data.user))
                 props.toggleInfo();

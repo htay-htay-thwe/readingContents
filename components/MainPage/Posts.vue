@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div data-aos="fade-right" :data-aos-delay="100"  class="flex justify-center p-0">
+    <div data-aos="fade-right" :data-aos-delay="100"  class="flex justify-center p-2">
       <input v-model="searchKey" name="searchKey" type="text" class="p-2 border-2 border-gray-500 w-96 rounded-s-md"
         placeholder="Search here..." />
       <button @click="onSubmit"
@@ -103,6 +103,8 @@ import { useThemeStore } from '@/stores/themeStore';
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
 import axios from 'axios'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 export default {
@@ -213,7 +215,6 @@ export default {
 
     const Save = async (postId) => {
       const userId = Id.value;
-      console.log(userId);
       await axios.get(`http://localhost:8000/api/basic-ui/create/save/${postId}/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token.value}` // Add the token to the headers
@@ -224,7 +225,6 @@ export default {
     }
 
     const UnSave = async (postId) => {
-      console.log('postId', postId);
       await axios.get(`http://localhost:8000/api/basic-ui/unSave/${postId}`, {
         headers: {
           'Authorization': `Bearer ${token.value}` // Add the token to the headers
@@ -246,7 +246,6 @@ export default {
 
     onMounted(async () => {
       isDark.value = themeStore.mode;
-      console.log(isDark.value);
       token.value = localStorage.getItem('token');
       const userData = JSON.parse(localStorage.getItem('user'));
       Id.value = userData.id;
@@ -276,7 +275,6 @@ export default {
 
     const postDetail = (postId) => {
       navigateTo(`/detail/${postId}`);
-      console.log('read');
     }
     return {
       firstImg,
@@ -291,7 +289,7 @@ export default {
       selectedGenre,
       paginatedPosts,
       isDark,
-      themeStore
+      themeStore,
     }
   }
 }

@@ -99,7 +99,6 @@ export default {
                 parentId: props.parentId,
                 reply: values.reply,
             };
-            console.log(formData);
             const res = await axios.post(`http://localhost:8000/api/basic-ui/reply/comment/${postId}/${userId}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token.value}`,

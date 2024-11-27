@@ -31,7 +31,6 @@ export default {
     // Toggle the dark mode on and off
     const toggleMode = () => {
       isDarkMode.value = !isDarkMode.value;
-      console.log('Dark mode toggled:', isDarkMode.value); // Debugging log
       updateBodyClass();
       localStorage.setItem('darkMode', isDarkMode.value); // Persist dark mode preference
       themeStore.getMode(isDarkMode.value); // Store dark mode in theme store (if needed)
@@ -49,9 +48,8 @@ export default {
     // On mounted, check for saved dark mode preference
     onMounted(() => {
       const storedMode = localStorage.getItem('darkMode');
-      isDarkMode.value = storedMode === 'true'; // Set dark mode based on saved preference
-      console.log('Dark mode on mounted:', isDarkMode.value); // Debugging log
-      updateBodyClass(); // Update body class on mount
+      isDarkMode.value = storedMode === 'true'; 
+      updateBodyClass(); 
     });
 
     return {

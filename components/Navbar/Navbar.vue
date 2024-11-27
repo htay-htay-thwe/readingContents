@@ -2,7 +2,7 @@
     <div>
         <div class="p-5 shadow-xl ">
             <div class="flex flex-row justify-between max-w-5xl mx-auto text-xl">
-                <div class="mt-1 font-semibold font-serif flex space-x-3">
+                <div class="flex mt-1 space-x-3 font-serif font-semibold">
                   <div><img :src="logo" class="w-8"/></div>
                   <div>LwHa<span class="text-green-700">EE</span></div>
                 </div>
@@ -56,7 +56,7 @@
                                 </button>
                             </div>
                             <div v-show="toggle"
-                                class="absolute transition-opacity duration-1000 ease-in-out z-10 w-56 mt-4 origin-top-right bg-white border-2 rounded-md shadow-lg -right-24 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                class="absolute z-10 w-56 mt-4 transition-opacity duration-1000 ease-in-out origin-top-right bg-white border-2 rounded-md shadow-lg -right-24 ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                                 <div class="py-1" role="none">
                                     <nuxt-link :to="`/profile/${userId}`"
@@ -251,7 +251,7 @@
 
         <NavbarChangePw :togglePassword="togglePassword" :showPw="showPw" :userId="userId" />
 
-        <div v-show="saveToggle" class="relative opacity-100 transition-opacity duration-1000 ease-in-out z-10 max-w-4xl mx-auto" aria-labelledby="modal-title" role="dialog"
+        <div v-show="saveToggle" class="relative z-10 max-w-4xl mx-auto transition-opacity duration-1000 ease-in-out opacity-100" aria-labelledby="modal-title" role="dialog"
             aria-modal="true">
             <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
             <div class="absolute right-0 z-10 w-screen">
@@ -294,8 +294,8 @@
                                         <img :src="post.images[0].image" class="w-full h-32 rounded-lg" />
                                     </div>
                                     <div class="mt-2 font-mono text-sm">
-                                        <div>{{ post.title }}</div>
-                                        <div>{{ post.genre }}</div>
+                                        <div class="truncate">{{ post.title }}</div>
+                                        <div class="truncate">{{ post.genre }}</div>
                                         <div class="text-gray-500">{{ post.userName }} </div>
                                     </div>
                                 </div>
@@ -359,12 +359,10 @@ export default {
             userData.value = JSON.parse(localStorage.getItem('user'));
             userId.value = userData.value.id;
             postData.value = themeStore.save;
-            console.log(themeStore.mode);
         });
 
         const Save = async (postId) => {
             const userId = Id.value;
-            console.log(userId);
             await axios.get(`http://localhost:8000/api/basic-ui/create/save/${postId}/${userId}`, {
                 headers: {
                     'Authorization': `Bearer ${token.value}` // Add the token to the headers
@@ -374,7 +372,6 @@ export default {
         }
 
         const UnSave = async (postId) => {
-            console.log('postId', postId);
             await axios.get(`http://localhost:8000/api/basic-ui/unSave/${postId}`, {
                 headers: {
                     'Authorization': `Bearer ${token.value}` // Add the token to the headers
@@ -385,7 +382,6 @@ export default {
 
         const togglePassword = () => {
             showPw.value = !showPw.value;
-            console.log('change');
         }
 
         const signOut = () => {

@@ -1,11 +1,10 @@
 <template>
   <div class="h-screen mx-auto">
     <Navbar :getProfile="getProfile" />
-    <MainPagePosts :loading="loading" :initialPaginatedPosts="initialPaginatedPosts" :getProfile="getProfile" :postData="postData" />
-    <MainPagePagination :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
-    <Footer />
-
-    <div v-if="loading" class="flex items-center justify-center h-screen"><div class="absolute w-12 h-12 border-4 border-t-4 border-green-400 rounded-md animate-spin"></div>.</div>
+    <MainPagePosts  :loading="loading" :initialPaginatedPosts="initialPaginatedPosts" :getProfile="getProfile" :postData="postData" />
+    <MainPagePagination  :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
+    <Footer class="fixed bottom-0 w-full"/>
+    <div v-if="loading" class="flex items-center justify-center h-80"><div class="absolute w-12 h-12 border-4 border-t-4 border-green-400 rounded-md animate-spin"></div>.</div>
   </div>
 </template>
 
@@ -38,7 +37,6 @@ export default {
       const userData = JSON.parse(localStorage.getItem('user'));
       Id.value = userData.id;
       const userId = Number(Id.value);
-      console.log('userId', userId);
       try {
         await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {
           headers: {

@@ -95,30 +95,7 @@
                             :class="{ 'bg-zinc-300 rounded-md p-1 text-xl': editor?.isActive('paragraph') }">
                             P
                         </button>
-                        <button @click="editor?.chain().focus().toggleHeading({ level: 1 }).run()"
-                            :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('heading', { level: 1 }) }">
-                            H1
-                        </button>
-                        <button @click="editor?.chain().focus().toggleHeading({ level: 2 }).run()"
-                            :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('heading', { level: 2 }) }">
-                            H2
-                        </button>
-                        <button @click="editor?.chain().focus().toggleHeading({ level: 3 }).run()"
-                            :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('heading', { level: 3 }) }">
-                            H3
-                        </button>
-                        <button @click="editor?.chain().focus().toggleHeading({ level: 4 }).run()"
-                            :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('heading', { level: 4 }) }">
-                            H4
-                        </button>
-                        <button @click="editor?.chain().focus().toggleHeading({ level: 5 }).run()"
-                            :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('heading', { level: 5 }) }">
-                            H5
-                        </button>
-                        <button @click="editor?.chain().focus().toggleHeading({ level: 6 }).run()"
-                            :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('heading', { level: 6 }) }">
-                            H6
-                        </button>
+                       
                         <button @click="editor?.chain().focus().toggleBulletList().run()"
                             :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('bulletList') }">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -327,7 +304,6 @@ export default {
                 const url = URL.createObjectURL(file);
                 uploadedImages.value.push({ file, url });
             });
-            console.log(uploadedImages.value);
             images.value = uploadedImages.value;
             event.target.value = '';
         };
@@ -378,7 +354,6 @@ export default {
                         file: null,
                         url: `http://localhost:8000/storage/images/${image.image}` // Construct URL for image display
                     }));
-                    console.log(uploadedImages.value);
                     images.value = uploadedImages.value;
 
                 }

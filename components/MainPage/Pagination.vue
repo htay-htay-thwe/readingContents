@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-end m-5">
+    <div class="flex justify-end h-32 mb-20">
       <nav aria-label="Pagination">
         <ul class="flex items-center space-x-2">
           <li>

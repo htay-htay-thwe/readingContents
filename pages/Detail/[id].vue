@@ -1,8 +1,8 @@
 <template>
     <div>
         <Navbar />
-        <DetailPage :loading="loading" :postId="postId" :getProfile="getProfile" />
-        <Footer />
+        <DetailPage  :loading="loading" :postId="postId" :getProfile="getProfile" />
+        <Footer class="fixed bottom-0 w-full"/>
         <div v-if="loading" class="flex items-center justify-center h-screen">
             <div class="flex gap-2">
                 <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
