@@ -32,9 +32,9 @@
         <label class="block mb-2 text-lg font-bold text-gray-700" for="password">
           Password
         </label>
-        <input type="password"  v-model="password" name="password"
+        <input type="password" v-model="password" name="password"
           class="w-full px-4 py-3 mb-3 leading-tight text-gray-700 border border-gray-500 rounded-lg shadow appearance-none focus:outline-none focus:shadow-outline"
-          id="password"  placeholder="Enter password" />
+          id="password" placeholder="Enter password" />
         <span v-if="errors.password" class="text-red-400">{{ errors.password }}</span>
       </div>
 
@@ -44,7 +44,8 @@
           type="submit">
           Sign Up
         </button>
-        <a class="inline-block text-sm font-bold underline align-baseline text-zinc-500 hover:text-blue-800" href="/loginPage">
+        <a class="inline-block text-sm font-bold underline align-baseline text-zinc-500 hover:text-blue-800"
+          href="/loginPage">
           Have an account!
         </a>
       </div>
@@ -55,7 +56,7 @@
 <script>
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-import axios from 'axios';
+import api from '~/utils/api';
 
 export default {
   setup() {
@@ -84,7 +85,7 @@ export default {
         password: values.password
       }
       try {
-        const res = await axios.post('http://localhost:8000/api/userAuth/create/user', data);
+        const res = await api.post('userAuth/create/user', data);
         themeStore.getUser(res.data.user);
         localStorage.setItem('token', res.data.token);
         res.data.user.image = 'http://localhost:8000/storage/images/' + res.data.user.image;

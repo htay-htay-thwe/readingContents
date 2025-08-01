@@ -5,18 +5,17 @@
             <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div class="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
-                    <form @submit.prevent="Submit"
-                    :class="[
+                    <form @submit.prevent="Submit" :class="[
                         'relative text-left transition-all transform rounded-lg top-10 shadow-xl sm:my-8 sm:w-full sm:max-w-lg',
                         themeStore.mode === true ? 'bg-black text-white' : 'bg-white text-black' // Conditional classes
                     ]">
                         <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="sm:flex sm:items-start">
                                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                    <h3 id="modal-title"   :class="[
-                        'text-base font-semibold leading-6 ',
-                        themeStore.mode === true ? ' text-white' : ' text-black' // Conditional classes
-                    ]">
+                                    <h3 id="modal-title" :class="[
+                                        'text-base font-semibold leading-6 ',
+                                        themeStore.mode === true ? ' text-white' : ' text-black' // Conditional classes
+                                    ]">
                                         Update Password!</h3>
                                     <div class="mt-2">
                                         <p class="text-sm text-gray-500">Are you sure you want to change your
@@ -70,7 +69,7 @@
 import { ref } from 'vue';
 import * as Yup from 'yup';
 import { useForm, useField } from 'vee-validate';
-import axios from 'axios';
+import api from '~/utils/api';
 
 export default {
     props: {
@@ -106,12 +105,12 @@ export default {
             formData.append('password', values.newPw);
             formData.append('userId', props.userId);
             try {
-                await axios.post('http://localhost:8000/api/userAuth/change/password', formData, {
+                await api.post('userAuth/change/password', formData, {
                     headers: {
                         'Authorization': `Bearer ${token.value}`
                     }
                 });
-                
+
                 props.togglePassword();
             } catch (error) {
                 if (error.response.status === 400) {
@@ -120,10 +119,10 @@ export default {
             }
         });
 
-        onMounted(() =>{
+        onMounted(() => {
             old.value = '';
             newPw.value = '';
-            errorMessage.value ='';
+            errorMessage.value = '';
             const userData = JSON.parse(localStorage.getItem('user'));
             userId.value = userData.id;
         });

@@ -169,13 +169,13 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-import axios from 'axios'
 import { Editor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import { Heading } from '@tiptap/extension-heading'
+import api from '~/utils/api';
 
 export default {
   setup() {
@@ -220,12 +220,12 @@ export default {
       'Urban',
       'Adventure Drama',
       'Historical Romance',
-      'Action Comedy',           
-      'Romantic Comedy',         
-      'Dark Comedy',                  
+      'Action Comedy',
+      'Romantic Comedy',
+      'Dark Comedy',
       'Fantasy Comedy',
-      'Family Drama', 
-      'politics',                 
+      'Family Drama',
+      'politics',
 
     ]);
 
@@ -260,7 +260,7 @@ export default {
         formData.append('images[]', image.file);
       });
 
-      axios.post('http://localhost:8000/api/basic-ui/create/post', formData, {
+      api.post('basic-ui/create/post', formData, {
         headers: {
           'Authorization': `Bearer ${token.value}` // Add the token to the headers
         }

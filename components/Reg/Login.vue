@@ -45,7 +45,7 @@
 <script>
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-import axios from 'axios';
+import api from '~/utils/api';
 
 export default {
   setup() {
@@ -72,7 +72,7 @@ export default {
         password: values.password
       }
       try {
-        const res = await axios.post('http://localhost:8000/api/userAuth/user/login', data);
+        const res = await api.post('userAuth/user/login', data);
         themeStore.getUser(res.data.user);
         localStorage.setItem('token', res.data.token);
         res.data.user.image = 'http://localhost:8000/storage/images/' + res.data.user.image;

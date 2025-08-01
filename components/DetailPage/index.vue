@@ -219,14 +219,14 @@
 import 'flowbite';
 import Img from "@/assets/img/default.jpg";
 import ImgI from "@/assets/img/first_img.png";
-import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+import api from '~/utils/api';
 
 export default {
-  layout: 'default' ,
+  layout: 'default',
   props: {
     postId: {
       type: String,
@@ -272,7 +272,7 @@ export default {
       const postId = Number(props.postId);
       const comment = values.comment;
       const parentId = 1;
-      await axios.get(`http://localhost:8000/api/basic-ui/create/comment/${postId}/${parentId}/${userId}/${comment}`, {
+      await api.get(`basic-ui/create/comment/${postId}/${parentId}/${userId}/${comment}`, {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
@@ -298,8 +298,8 @@ export default {
 
     const Detail = async () => {
       const userId = Id.value;
-      await axios.get(
-        `http://localhost:8000/api/basic-ui/get/read/content/${postId}/${userId}`,
+      await api.get(
+        `basic-ui/get/read/content/${postId}/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token.value}`,
@@ -321,7 +321,7 @@ export default {
       const userData = JSON.parse(localStorage.getItem("user"));
       Id.value = userData.id;
       const userId = Id.value;
-      await axios.get(`http://localhost:8000/api/basic-ui/add/like/${postId}/${userId}`, {
+      await api.get(`basic-ui/add/like/${postId}/${userId}`, {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
@@ -335,7 +335,7 @@ export default {
       const userData = JSON.parse(localStorage.getItem("user"));
       Id.value = userData.id;
       const userId = Id.value;
-      await axios.get(`http://localhost:8000/api/basic-ui/unlike/${postId}/${userId}`, {
+      await api.get(`basic-ui/unlike/${postId}/${userId}`, {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
@@ -350,7 +350,7 @@ export default {
       Id.value = userData.id;
       const userId = Number(Id.value);
       const postIds = Number(props.postId);
-      await axios.get(`http://localhost:8000/api/basic-ui/create/view/content/${userId}/${postIds}`, {
+      await api.get(`basic-ui/create/view/content/${userId}/${postIds}`, {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
@@ -363,7 +363,7 @@ export default {
     const getComments = async () => {
       token.value = localStorage.getItem("token");
       const postId = Number(props.postId);
-      const res = await axios.get(`http://localhost:8000/api/basic-ui/show/comments/${postId}`, {
+      const res = await api.get(`basic-ui/show/comments/${postId}`, {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
@@ -382,7 +382,7 @@ export default {
         'Yes',
         'No',
         async () => {
-          await axios.get(`http://localhost:8000/api/basic-ui/delete/comment/${commentId}/${props.postId}`, {
+          await api.get(`basic-ui/delete/comment/${commentId}/${props.postId}`, {
             headers: {
               Authorization: `Bearer ${token.value}`,
             },

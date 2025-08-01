@@ -3,7 +3,11 @@
   <div v-if="!loading">
     <div data-aos="fade-right"
       class="flex-wrap max-w-sm p-4 mx-auto font-serif sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-5xl mt-7">
-     <span class="text-6xl font-semibold">W</span>elcome to <span class="text-xl font-bold">LwHa<span class="text-xl text-green-700">EE</span></span>, your ultimate destination for discovering, creating, and sharing content across a wide range of genres. Whether you're an aspiring writer, a content creator, or simply a passionate reader, our platform offers everything you need to explore and express your ideas in a creative and engaging way.
+      <span class="text-6xl font-semibold">W</span>elcome to <span class="text-xl font-bold">LwHa<span
+          class="text-xl text-green-700">EE</span></span>, your ultimate destination for discovering, creating, and
+      sharing content across a wide range of genres. Whether you're an aspiring writer, a content creator, or simply a
+      passionate reader, our platform offers everything you need to explore and express your ideas in a creative and
+      engaging way.
     </div>
     <div class="flex flex-wrap max-w-6xl gap-3 p-10 mx-auto ">
       <div @click="getProfile" data-aos="fade-left"
@@ -21,12 +25,12 @@
       </div>
     </div>
 
-    <div data-aos="fade-right" :data-aos-delay="100"  class="flex justify-center p-2">
+    <div data-aos="fade-right" :data-aos-delay="100" class="flex justify-center p-2">
       <input v-model="searchKey" name="searchKey" type="text" class="p-2 border-2 border-gray-500 w-96 rounded-s-md"
         placeholder="Search here..." />
       <button @click="onSubmit"
         class="p-1.5 font-mono text-center bg-green-400 hover:text-gray-600 rounded-e-md">Search</button>
-    </div> 
+    </div>
     <div data-aos="fade-right" :data-aos-delay="100"
       class="max-w-5xl p-6 mx-auto text-4xl underline mb-7 decoration-green-400 decoration-2">
       Posts
@@ -35,32 +39,34 @@
       <div
         class="grid items-center max-w-sm grid-cols-1 gap-3 mx-auto sm:max-w-xl md:max-w-3xl lg:max-w-4xl sm:gap-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
         v-if="paginatedPosts && paginatedPosts.length > 0">
-        <div data-aos="fade-left" :data-aos-delay="index * 50" data-aos-duration="500" 
+        <div data-aos="fade-left" :data-aos-delay="index * 50" data-aos-duration="500"
           class="p-3 mx-auto mb-2 scale-100 border-2 w-44 rounded-xl group hover:scale-105"
           v-for="(post, index) in paginatedPosts" :key="index">
-          <div v-if="post.save !== 0" @click.stop="Save(post.id)" class="absolute flex items-center justify-center w-12 h-12 transition-opacity duration-500 ease-in-out bg-gray-800 rounded-full shadow-lg opacity-0 group-hover:opacity-100 top-2">
-            <svg  xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="text-white size-6 ">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-          </svg>
+          <div v-if="post.save !== 0" @click.stop="Save(post.id)"
+            class="absolute flex items-center justify-center w-12 h-12 transition-opacity duration-500 ease-in-out bg-gray-800 rounded-full shadow-lg opacity-0 group-hover:opacity-100 top-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="text-white size-6 ">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
+            </svg>
           </div>
-          <div v-else @click.stop="UnSave(post.id)" class="absolute flex items-center justify-center w-12 h-12 transition-opacity duration-500 ease-in-out bg-gray-800 rounded-full shadow-lg opacity-100 top-2">
-          <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            fill="#00DC82" class="absolute text-gray-500 opacity-100 size-6 ">
-            <path fill-rule="evenodd"
-              d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
-              clip-rule="evenodd" />
-          </svg>
+          <div v-else @click.stop="UnSave(post.id)"
+            class="absolute flex items-center justify-center w-12 h-12 transition-opacity duration-500 ease-in-out bg-gray-800 rounded-full shadow-lg opacity-100 top-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00DC82"
+              class="absolute text-gray-500 opacity-100 size-6 ">
+              <path fill-rule="evenodd"
+                d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
+                clip-rule="evenodd" />
+            </svg>
           </div>
-             <nuxt-link :to="`/detail/${post.id}`"  class="absolute flex items-center justify-center w-12 h-12 transition-opacity duration-1000 ease-in-out bg-gray-800 rounded-full shadow-lg opacity-0 group-hover:opacity-100 right-3 top-2">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#02DF84"
-            class="font-bold size-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
-        </nuxt-link>
+          <nuxt-link :to="`/detail/${post.id}`"
+            class="absolute flex items-center justify-center w-12 h-12 transition-opacity duration-1000 ease-in-out bg-gray-800 rounded-full shadow-lg opacity-0 group-hover:opacity-100 right-3 top-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#02DF84"
+              class="font-bold size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </nuxt-link>
 
           <div class="w-36">
             <img :src="post.images[0].image" class="w-full h-40 rounded-lg" />
@@ -102,9 +108,9 @@ import firstImg from '@/assets/img/first_img.png';
 import { useThemeStore } from '@/stores/themeStore';
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-import axios from 'axios'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import api from '~/utils/api';
 
 
 export default {
@@ -167,12 +173,12 @@ export default {
       'Urban',
       'Adventure Drama',
       'Historical Romance',
-      'Action Comedy',           
-      'Romantic Comedy',         
-      'Dark Comedy',                   
-      'Fantasy Comedy',          
-      'Family Drama',  
-      'politics'              
+      'Action Comedy',
+      'Romantic Comedy',
+      'Dark Comedy',
+      'Fantasy Comedy',
+      'Family Drama',
+      'politics'
 
     ]);
 
@@ -186,7 +192,7 @@ export default {
 
     const onSubmit = handleSubmit(async () => {
       const userId = Id.value;
-      await axios.get(`http://localhost:8000/api/basic-ui/search/data/${userId}/${searchKey.value}`, {
+      await api.get(`basic-ui/search/data/${userId}/${searchKey.value}`, {
         headers: {
           'Authorization': `Bearer ${token.value}` // Add the token to the headers
         }
@@ -215,7 +221,7 @@ export default {
 
     const Save = async (postId) => {
       const userId = Id.value;
-      await axios.get(`http://localhost:8000/api/basic-ui/create/save/${postId}/${userId}`, {
+      await api.get(`basic-ui/create/save/${postId}/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token.value}` // Add the token to the headers
         }
@@ -225,7 +231,7 @@ export default {
     }
 
     const UnSave = async (postId) => {
-      await axios.get(`http://localhost:8000/api/basic-ui/unSave/${postId}`, {
+      await api.get(`basic-ui/unSave/${postId}`, {
         headers: {
           'Authorization': `Bearer ${token.value}` // Add the token to the headers
         }
@@ -256,7 +262,7 @@ export default {
     const searchByGenre = async (genre) => {
       const userId = Id.value;
       selectedGenre.value = genre;
-      await axios.get(`http://localhost:8000/api/basic-ui/genre/search/data/${userId}/${genre}`, {
+      await api.get(`basic-ui/genre/search/data/${userId}/${genre}`, {
         headers: {
           'Authorization': `Bearer ${token.value}` // Add the token to the headers
         }

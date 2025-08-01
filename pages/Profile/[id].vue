@@ -1,25 +1,25 @@
 <template>
-    <div class="relative h-screen mx-auto">
-        <Navbar />
-        <ProfileImgProfile class="p-2 mb-5" :loading="loading" :userId="userId" :getProfile="getProfile"/>
-        <Footer class="fixed bottom-0 w-full"/>
-        <div v-if="loading"  class="flex items-center justify-center h-screen">
-          <div class="flex gap-2">
-    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-</div>
-</div>
+  <div class="relative h-screen mx-auto">
+    <Navbar />
+    <ProfileImgProfile class="p-2 mb-5" :loading="loading" :userId="userId" :getProfile="getProfile" />
+    <Footer class="fixed bottom-0 w-full" />
+    <div v-if="loading" class="flex items-center justify-center h-screen">
+      <div class="flex gap-2">
+        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
 import { Report } from 'notiflix/build/notiflix-report-aio';
+import api from '~/utils/api';
 export default {
-    setup() {
+  setup() {
     const route = useRoute();
-    const userId = route.params.id; 
+    const userId = route.params.id;
     const themeStore = useThemeStore();
     const loading = ref(false);
     const token = ref('');
@@ -29,7 +29,7 @@ export default {
       token.value = localStorage.getItem('token');
       loading.value = true;
       try {
-        await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {
+        await api.get(`basic-ui/get/profile/post/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token.value}` // Add the token to the headers
           }
@@ -80,7 +80,7 @@ export default {
             }
           );
         }
-      } 
+      }
     };
 
     return {
@@ -88,7 +88,7 @@ export default {
       getProfile,
       token,
       loading
-   
+
     };
   }
 

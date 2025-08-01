@@ -95,7 +95,7 @@
                             :class="{ 'bg-zinc-300 rounded-md p-1 text-xl': editor?.isActive('paragraph') }">
                             P
                         </button>
-                       
+
                         <button @click="editor?.chain().focus().toggleBulletList().run()"
                             :class="{ 'bg-zinc-300 rounded-md p-1': editor?.isActive('bulletList') }">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -170,11 +170,11 @@ import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
 import { Editor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import axios from 'axios'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import { Heading } from '@tiptap/extension-heading'
+import api from '~/utils/api';
 
 
 export default {
@@ -227,12 +227,12 @@ export default {
             'Urban',
             'Adventure Drama',
             'Historical Romance',
-            'Action Comedy',          
-            'Romantic Comedy',         
-            'Dark Comedy',                    
-            'Fantasy Comedy',         
-            'Family Drama', 
-            'politics'                
+            'Action Comedy',
+            'Romantic Comedy',
+            'Dark Comedy',
+            'Fantasy Comedy',
+            'Family Drama',
+            'politics'
         ]);
 
         const schema = Yup.object({
@@ -271,7 +271,7 @@ export default {
                 }
             });
 
-            axios.post('http://localhost:8000/api/basic-ui/update/post', formData, {
+            api.post('basic-ui/update/post', formData, {
                 headers: {
                     'Authorization': `Bearer ${token.value}` // Add the token to the headers
                 }
@@ -317,7 +317,7 @@ export default {
         const editPost = () => {
             const postId = props.postId;
             const userId = Id.value;
-            axios.get(`http://localhost:8000/api/basic-ui/edit/post/${postId}/${userId}`, {
+            api.get(`basic-ui/edit/post/${postId}/${userId}`, {
                 headers: {
                     'Authorization': `Bearer ${token.value}` // Add the token to the headers
                 }
@@ -394,7 +394,12 @@ export default {
 };
 </script>
 <style lang="css">
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: bold;
     margin: 1rem 0;
     color: #333;
@@ -423,5 +428,4 @@ h5 {
 h6 {
     font-size: 1rem;
 }
-
 </style>

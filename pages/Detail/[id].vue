@@ -1,8 +1,8 @@
 <template>
     <div>
         <Navbar />
-        <DetailPage  :loading="loading" :postId="postId" :getProfile="getProfile" />
-        <Footer class="fixed bottom-0 w-full"/>
+        <DetailPage :loading="loading" :postId="postId" :getProfile="getProfile" />
+        <Footer class="fixed bottom-0 w-full" />
         <div v-if="loading" class="flex items-center justify-center h-screen">
             <div class="flex gap-2">
                 <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '~/utils/api';
+
 export default {
     setup() {
         const route = useRoute();
@@ -31,7 +32,7 @@ export default {
             const userId = Number(Id.value);
             loading.value = true;
             try {
-                await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {
+                await api.get(`basic-ui/get/profile/post/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${token.value}` // Add the token to the headers
                     }

@@ -3,8 +3,8 @@
         <div class="p-5 shadow-xl ">
             <div class="flex flex-row justify-between max-w-5xl mx-auto text-xl">
                 <div class="flex mt-1 space-x-3 font-serif font-semibold">
-                  <div><img :src="logo" class="w-8"/></div>
-                  <div>LwHa<span class="text-green-700">EE</span></div>
+                    <div><img :src="logo" class="w-8" /></div>
+                    <div>LwHa<span class="text-green-700">EE</span></div>
                 </div>
 
                 <div class="flex-row hidden gap-8 sm:flex">
@@ -116,12 +116,12 @@
                         </svg>
                     </div>
 
-             
+
                     <NavbarToggleMode />
                 </div>
 
                 <div class="flex flex-row gap-5 sm:hidden">
-                    <NavbarToggleMode  class="mb-0.5"/>
+                    <NavbarToggleMode class="mb-0.5" />
                     <div>
                         <div class="relative inline-block mt-1 text-xl text-left">
                             <div>
@@ -203,27 +203,27 @@
                             <div class="p-3 py-3" role="none">
                                 <div>
                                     <nuxt-link to="/about" class="flex">
-                                       <div>
-                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                            class="mt-1 text-green-400 size-7">
-                                            <path
-                                                d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-                                            <path
-                                                d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
-                                        </svg>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="mt-1 text-green-400 size-7">
+                                                <path
+                                                    d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
+                                                <path
+                                                    d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
+                                            </svg>
                                         </div>
-                                         <div class="mt-1 font-semibold">Home</div>
+                                        <div class="mt-1 font-semibold">Home</div>
                                     </nuxt-link>
                                 </div>
 
 
                                 <div @click="saveDrop()" class="flex mt-2">
-                                   <div> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00C678"
-                                        class="size-6">
-                                        <path fill-rule="evenodd"
-                                            d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
-                                            clip-rule="evenodd" />
-                                    </svg></div>
+                                    <div> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00C678"
+                                            class="size-6">
+                                            <path fill-rule="evenodd"
+                                                d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
+                                                clip-rule="evenodd" />
+                                        </svg></div>
                                     <div class="font-semibold">Save</div>
                                 </div>
 
@@ -251,8 +251,9 @@
 
         <NavbarChangePw :togglePassword="togglePassword" :showPw="showPw" :userId="userId" />
 
-        <div v-show="saveToggle" class="relative z-10 max-w-4xl mx-auto transition-opacity duration-1000 ease-in-out opacity-100" aria-labelledby="modal-title" role="dialog"
-            aria-modal="true">
+        <div v-show="saveToggle"
+            class="relative z-10 max-w-4xl mx-auto transition-opacity duration-1000 ease-in-out opacity-100"
+            aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
             <div class="absolute right-0 z-10 w-screen">
                 <div class="flex items-end justify-end h-full p-4 text-center sm:items-center sm:p-0">
@@ -316,8 +317,8 @@
 import Img from "@/assets/img/default.jpg"
 import logo from "@/assets/img/social-media.png"
 import { ref } from 'vue'
-import axios from 'axios';
 import changePw from './changePw.vue';
+import api from "~/utils/api";
 export default {
     components: { changePw },
     props: {
@@ -363,7 +364,7 @@ export default {
 
         const Save = async (postId) => {
             const userId = Id.value;
-            await axios.get(`http://localhost:8000/api/basic-ui/create/save/${postId}/${userId}`, {
+            await api.get(`basic-ui/create/save/${postId}/${userId}`, {
                 headers: {
                     'Authorization': `Bearer ${token.value}` // Add the token to the headers
                 }
@@ -372,7 +373,7 @@ export default {
         }
 
         const UnSave = async (postId) => {
-            await axios.get(`http://localhost:8000/api/basic-ui/unSave/${postId}`, {
+            await api.get(`basic-ui/unSave/${postId}`, {
                 headers: {
                     'Authorization': `Bearer ${token.value}` // Add the token to the headers
                 }

@@ -8,8 +8,7 @@
                 <div class="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
                     <div
                         class="relative text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
-                        <div class="px-4 pt-5 pb-4 mx-auto overflow-y-auto rounded-lg"
-                            style="max-height: 400px;">
+                        <div class="px-4 pt-5 pb-4 mx-auto overflow-y-auto rounded-lg" style="max-height: 400px;">
                             <div class="flex flex-row justify-between ">
                                 <div class="font-mono text-2xl font-bold">Comment</div>
                             </div>
@@ -19,7 +18,8 @@
                             <div class="flex flex-row gap-4">
                                 <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
                                     class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-                                <img v-else :src="userData.image" class="w-12 h-12 border-2 rounded-full border-zinc-400" />
+                                <img v-else :src="userData.image"
+                                    class="w-12 h-12 border-2 rounded-full border-zinc-400" />
                                 <div><textarea v-model="reply" name="reply" class="border-2 rounded-md border-zinc-500"
                                         cols="50" rows="5" placeholder="Enter Comment here..."></textarea></div>
                             </div>
@@ -44,9 +44,9 @@
 <script>
 import { ref } from 'vue';
 import Img from "@/assets/img/default.jpg";
-import axios from "axios";
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
+import api from '~/utils/api';
 export default {
     props: {
         replyDrop: {
@@ -99,7 +99,7 @@ export default {
                 parentId: props.parentId,
                 reply: values.reply,
             };
-            const res = await axios.post(`http://localhost:8000/api/basic-ui/reply/comment/${postId}/${userId}`, formData, {
+            const res = await api.post(`basic-ui/reply/comment/${postId}/${userId}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token.value}`,
                 },

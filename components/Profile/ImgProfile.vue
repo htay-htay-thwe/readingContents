@@ -1,6 +1,6 @@
 <template>
     <div v-if="!loading">
-        <div  class="flex flex-col max-w-xl gap-10 mx-auto mt-10 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl sm:flex-row">
+        <div class="flex flex-col max-w-xl gap-10 mx-auto mt-10 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl sm:flex-row">
             <div class="gap-10 mx-auto mt-10 " v-if="userId == userData.id">
                 <div class="w-40 h-40 mx-auto mb-3 rounded-full ">
                     <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
@@ -19,7 +19,7 @@
                         Photo</button></div>
 
             </div>
-             <div class="gap-10 mx-auto mt-10 " v-if="Number(userId) !== userData.id && paginatedPosts.length > 0">
+            <div class="gap-10 mx-auto mt-10 " v-if="Number(userId) !== userData.id && paginatedPosts.length > 0">
                 <div class="w-40 h-40 mx-auto mb-3 rounded-full ">
                     <img v-if="paginatedPosts[0].writerProfile === null" :src="Img"
                         class="w-full h-full border-2 border-green-400 rounded-full" />
@@ -37,7 +37,7 @@
                         class="w-full p-2 font-mono bg-green-400 rounded-md hover:text-zinc-500">Upload
                         Photo</button></div>
 
-            </div> 
+            </div>
             <div class="w-2/3 mx-auto sm:w-full">
                 <div class="px-4 pb-4 pl-4">
                     <div class="flex space-x-4" v-if="userId == userData.id">
@@ -50,9 +50,9 @@
                         </button>
                     </div>
                     <div v-else>
-                     <button
-                            class="px-4 py-2 text-lg font-semibold text-green-400 transition-colors duration-300 border-b-2 border-green-400" >
-                           Posts
+                        <button
+                            class="px-4 py-2 text-lg font-semibold text-green-400 transition-colors duration-300 border-b-2 border-green-400">
+                            Posts
                         </button>
                     </div>
 
@@ -188,18 +188,18 @@
             </div>
             <ProfileUpdateInfo :toggleInfo="toggleInfo" :infoModal="infoModal" :userId="userId" />
         </div>
-        <MainPagePagination  :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
+        <MainPagePagination :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
     </div>
-  
+
 </template>
 
 <script>
-import { onMounted,ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Img from "@/assets/img/default.jpg"
 import * as Yup from 'yup';
 import { useForm, useField } from 'vee-validate';
-import axios from 'axios'
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+import api from '~/utils/api';
 
 export default {
     props: {
@@ -297,7 +297,7 @@ export default {
             const formData = new FormData();
             formData.append('image', values.image);
             formData.append('userId', Number(props.userId));
-            const res = await axios.post(`http://localhost:8000/api/userAuth/upload/profileImage`, formData, {
+            const res = await api.post(`userAuth/upload/profileImage`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token.value}`,
                     'Content-Type': 'multipart/form-data', // Add the token to the headers
@@ -347,7 +347,7 @@ export default {
                 'Yes',
                 'No',
                 async () => {
-                    axios.get(`http://localhost:8000/api/basic-ui/delete/profile/post/${postId}`, {
+                    api.get(`basic-ui/delete/profile/post/${postId}`, {
                         headers: {
                             'Authorization': `Bearer ${token.value}` // Add the token to the headers
                         }
@@ -366,7 +366,7 @@ export default {
             token.value = localStorage.getItem('token');
             const userId = props.userId;
             try {
-                await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {
+                await api.get(`basic-ui/get/profile/post/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${token.value}` // Add the token to the headers
                     }
@@ -428,7 +428,7 @@ export default {
                 'Yes',
                 'No',
                 async () => {
-                    axios.get(`http://localhost:8000/api/basic-ui/restore/profile/post/${postId}`, {
+                    api.get(`basic-ui/restore/profile/post/${postId}`, {
                         headers: {
                             'Authorization': `Bearer ${token.value}` // Add the token to the headers
                         }
@@ -452,7 +452,7 @@ export default {
                 'Yes',
                 'No',
                 async () => {
-                    axios.get(`http://localhost:8000/api/basic-ui/delete/permanent/profile/post/${postId}`, {
+                    api.get(`basic-ui/delete/permanent/profile/post/${postId}`, {
                         headers: {
                             'Authorization': `Bearer ${token.value}` // Add the token to the headers
                         }

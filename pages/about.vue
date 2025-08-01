@@ -1,18 +1,21 @@
 <template>
   <div class="h-screen mx-auto">
     <Navbar :getProfile="getProfile" />
-    <MainPagePosts  :loading="loading" :initialPaginatedPosts="initialPaginatedPosts" :getProfile="getProfile" :postData="postData" />
-    <MainPagePagination  :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
-    <Footer class="fixed bottom-0 w-full"/>
-    <div v-if="loading" class="flex items-center justify-center h-80"><div class="absolute w-12 h-12 border-4 border-t-4 border-green-400 rounded-md animate-spin"></div>.</div>
+    <MainPagePosts :loading="loading" :initialPaginatedPosts="initialPaginatedPosts" :getProfile="getProfile"
+      :postData="postData" />
+    <MainPagePagination :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
+    <Footer class="fixed bottom-0 w-full" />
+    <div v-if="loading" class="flex items-center justify-center h-80">
+      <div class="absolute w-12 h-12 border-4 border-t-4 border-green-400 rounded-md animate-spin"></div>.
+    </div>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue';
-import axios from 'axios';
 import { useThemeStore } from '@/stores/themeStore';
 import { Report } from 'notiflix/build/notiflix-report-aio';
+import api from '~/utils/api';
 
 export default {
   setup() {
@@ -38,7 +41,7 @@ export default {
       Id.value = userData.id;
       const userId = Number(Id.value);
       try {
-        await axios.get(`http://localhost:8000/api/basic-ui/get/profile/post/${userId}`, {
+        await api.get(`basic-ui/get/profile/post/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token.value}` // Add the token to the headers
           }
@@ -90,7 +93,7 @@ export default {
           );
         }
       } finally {
-        loading.value = false; 
+        loading.value = false;
       }
     };
 
