@@ -1,10 +1,8 @@
 import axios from 'axios'
 
-const api = axios.create({
-    baseURL: 'http://localhost:8000/api/',
-    headers: {
-        'Content-Type': 'application/json',
-    },
+export const api = axios.create({
+    baseURL: 'https://creatingcontents-backened-production.up.railway.app/api/'
 })
 
-export default api
+export const url = "https://creatingcontents-backened-production.up.railway.app/";
+

@@ -3,7 +3,7 @@
         <div class="flex flex-col max-w-xl gap-10 mx-auto mt-10 sm:max-w-3xl md:max-w-4xl lg:max-w-5xl sm:flex-row">
             <div class="gap-10 mx-auto mt-10 " v-if="userId == userData.id">
                 <div class="w-40 h-40 mx-auto mb-3 rounded-full ">
-                    <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
+                    <img v-if="userData.image === `${url}storage/images/null`" :src="Img"
                         class="w-full h-full border-2 border-green-400 rounded-full" />
                     <img v-else :src="userData.image" class="w-full h-full border-2 border-green-400 rounded-full" />
                 </div>
@@ -23,7 +23,7 @@
                 <div class="w-40 h-40 mx-auto mb-3 rounded-full ">
                     <img v-if="paginatedPosts[0].writerProfile === null" :src="Img"
                         class="w-full h-full border-2 border-green-400 rounded-full" />
-                    <img v-else :src="`http://localhost:8000/storage/images/${paginatedPosts[0].writerProfile}`"
+                    <img v-else :src="`${url}storage/images/${paginatedPosts[0].writerProfile}`"
                         class="w-full h-full border-2 border-green-400 rounded-full" />
                 </div>
                 <div class="font-mono text-xl text-center text-zinc-500">{{ paginatedPosts[0].userName }}</div>
@@ -198,8 +198,9 @@ import { onMounted, ref } from 'vue';
 import Img from "@/assets/img/default.jpg"
 import * as Yup from 'yup';
 import { useForm, useField } from 'vee-validate';
-import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
-import api from '~/utils/api';
+import notiflix from 'notiflix/build/notiflix-confirm-aio';
+const { Confirm } = notiflix;
+import { api, url } from '~/utils/api';
 
 export default {
     props: {
@@ -304,7 +305,7 @@ export default {
                 }
             });
             if (res.data.user.image !== null) {
-                res.data.user.image = 'http://localhost:8000/storage/images/' + res.data.user.image;
+                res.data.user.image = `${url}storage/images/` + res.data.user.image;
             }
 
             themeStore.getUser(res.data.user);
@@ -374,28 +375,28 @@ export default {
                     res.data.post.forEach(post => {
                         if (post.images && post.images.length > 0) {
                             post.images.forEach((img, index) => {
-                                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                                post.images[index].image = `${url}storage/images/` + mg.image;
                             });
                         }
                     });
                     res.data.postAuth.forEach(post => {
                         if (post.images && post.images.length > 0) {
                             post.images.forEach((img, index) => {
-                                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                                post.images[index].image = `${url}storage/images/` + mg.image;
                             });
                         }
                     });
                     res.data.deletedPosts.forEach(post => {
                         if (post.images && post.images.length > 0) {
                             post.images.forEach((img, index) => {
-                                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                                post.images[index].image = `${url}storage/images/` + mg.image;
                             });
                         }
                     });
                     res.data.save.forEach(post => {
                         if (post.images && post.images.length > 0) {
                             post.images.forEach((img, index) => {
-                                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                                post.images[index].image = `${url}storage/images/` + mg.image;
                             });
                         }
                     });

@@ -14,8 +14,9 @@
 <script>
 import { ref } from 'vue';
 import { useThemeStore } from '@/stores/themeStore';
-import { Report } from 'notiflix/build/notiflix-report-aio';
-import api from '~/utils/api';
+import notiflix from 'notiflix/build/notiflix-report-aio';
+const { Report } = notiflix;
+import { api, url } from '~/utils/api';
 
 export default {
   setup() {
@@ -49,28 +50,28 @@ export default {
           res.data.post.forEach(post => {
             if (post.images && post.images.length > 0) {
               post.images.forEach((img, index) => {
-                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                post.images[index].image = `${url}storage/images/` + img.image;
               });
             }
           });
           res.data.postAuth.forEach(post => {
             if (post.images && post.images.length > 0) {
               post.images.forEach((img, index) => {
-                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                post.images[index].image = `${url}storage/images/` + img.image;
               });
             }
           });
           res.data.deletedPosts.forEach(post => {
             if (post.images && post.images.length > 0) {
               post.images.forEach((img, index) => {
-                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                post.images[index].image = `${url}storage/images/` + img.image;
               });
             }
           });
           res.data.save.forEach(post => {
             if (post.images && post.images.length > 0) {
               post.images.forEach((img, index) => {
-                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                post.images[index].image = `${url}storage/images/` + img.image;
               });
             }
           });

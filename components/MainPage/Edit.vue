@@ -174,7 +174,7 @@ import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import { Heading } from '@tiptap/extension-heading'
-import api from '~/utils/api';
+import { api, url } from '~/utils/api';
 
 
 export default {
@@ -279,14 +279,14 @@ export default {
                 res.data.post.forEach(post => {
                     if (post.images && post.images.length > 0) {
                         post.images.forEach((img, index) => {
-                            post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                            post.images[index].image = `${url}storage/images/` + img.image;
                         });
                     }
                 }),
                     res.data.postAuth.forEach(post => {
                         if (post.images && post.images.length > 0) {
                             post.images.forEach((img, index) => {
-                                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                                post.images[index].image = `${url}storage/images/` + img.image;
                             });
                         }
                     }),
@@ -352,7 +352,7 @@ export default {
                 if (post.images && post.images.length > 0) {
                     uploadedImages.value = post.images.map(image => ({
                         file: null,
-                        url: `http://localhost:8000/storage/images/${image.image}` // Construct URL for image display
+                        url: `${url}storage/images/${image.image}` // Construct URL for image display
                     }));
                     images.value = uploadedImages.value;
 

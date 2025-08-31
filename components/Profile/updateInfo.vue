@@ -64,7 +64,7 @@
 <script>
 import * as Yup from 'yup';
 import { useForm, useField } from 'vee-validate';
-import api from '~/utils/api';
+import { api, url } from '~/utils/api';
 export default {
     props: {
         toggleInfo: {
@@ -110,7 +110,7 @@ export default {
                 });
 
                 if (res.data.user.image !== null) {
-                    res.data.user.image = 'http://localhost:8000/storage/images/' + res.data.user.image;
+                    res.data.user.image = `'${url}storage/images/` + res.data.user.image;
                 }
                 themeStore.getUser(res.data.user);
                 localStorage.setItem('user', JSON.stringify(res.data.user))

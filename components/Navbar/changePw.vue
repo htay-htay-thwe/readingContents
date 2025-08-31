@@ -38,7 +38,7 @@
                                             class="w-full px-3 py-2 text-lg leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                                             id="username" type="text" placeholder="Enter oldPassword">
                                         <span v-if="errors.old" class="text-sm text-red-400">{{ errors.old
-                                            }}</span>
+                                        }}</span>
                                     </div>
                                     <div class="mb-4">
                                         <label class="block mt-4 mb-2 text-sm font-bold text-gray-700" for="username">
@@ -69,7 +69,7 @@
 import { ref } from 'vue';
 import * as Yup from 'yup';
 import { useForm, useField } from 'vee-validate';
-import api from '~/utils/api';
+import { api, url } from '~/utils/api';
 
 export default {
     props: {

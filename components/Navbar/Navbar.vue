@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="">
-                        <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
+                        <img v-if="userData.image === `${url}storage/images/null`" :src="Img"
                             class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
                         <img v-else :src="userData.image"
                             class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
@@ -318,7 +318,7 @@ import Img from "@/assets/img/default.jpg"
 import logo from "@/assets/img/social-media.png"
 import { ref } from 'vue'
 import changePw from './changePw.vue';
-import api from "~/utils/api";
+import { api, url } from "~/utils/api";
 export default {
     components: { changePw },
     props: {

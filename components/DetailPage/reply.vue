@@ -16,7 +16,7 @@
 
                         <div class="p-5">
                             <div class="flex flex-row gap-4">
-                                <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
+                                <img v-if="userData.image === `${url}storage/images/null`" :src="Img"
                                     class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
                                 <img v-else :src="userData.image"
                                     class="w-12 h-12 border-2 rounded-full border-zinc-400" />
@@ -46,7 +46,7 @@ import { ref } from 'vue';
 import Img from "@/assets/img/default.jpg";
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-import api from '~/utils/api';
+import { api, url } from '~/utils/api';
 export default {
     props: {
         replyDrop: {

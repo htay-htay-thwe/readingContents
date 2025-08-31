@@ -6,7 +6,7 @@
       <nuxt-link class="-mt-2" :to="`/profile/${postDetail.userId}`">
         <img v-if="postDetail.writerProfile === null" :src="Img"
           class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg animate-glow-border" />
-        <img v-else :src="`http://localhost:8000/storage/images/${postDetail.writerProfile}`"
+        <img v-else :src="`${url}storage/images/${postDetail.writerProfile}`"
           class="w-12 h-12 border-2 rounded-full shadow-lg animate-glow-border" />
       </nuxt-link>
 
@@ -66,7 +66,7 @@
       <!-- Container for comment and image -->
       <div class="flex flex-col gap-4 mt-3 sm:flex-row">
         <!-- Profile Image -->
-        <img v-if="userData.image === 'http://localhost:8000/storage/images/null'" :src="Img"
+        <img v-if="userData.image === `${url}storage/images/null`" :src="Img"
           class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg sm:w-12 sm:h-12 md:w-16 md:h-16" />
         <img v-else :src="userData.image"
           class="w-12 h-12 border-2 rounded-full border-zinc-400 sm:w-14 sm:h-14 md:w-16 md:h-16" />
@@ -97,7 +97,7 @@
       <div class="flex flex-row max-w-4xl mx-auto mb-2 space-x-3">
         <img v-if="comment.user.image == null" :src="Img"
           class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-        <img v-else :src="`http://localhost:8000/storage/images/${comment.user.image}`"
+        <img v-else :src="`${url}storage/images/${comment.user.image}`"
           class="w-10 h-10 mt-1 border-2 rounded-full shadow-lg border-zinc-400" />
         <div class="w-1/2">
           <div class="p-3 border-2 rounded-lg shadow-lg">
@@ -117,7 +117,7 @@
           <div class="flex flex-row max-w-4xl pl-8 mx-auto mb-2 space-x-3">
             <img v-if="replyOne.user.image == null" :src="Img"
               class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-            <img v-else :src="`http://localhost:8000/storage/images/${replyOne.user.image}`"
+            <img v-else :src="`${url}storage/images/${replyOne.user.image}`"
               class="w-10 h-10 mt-1 border-2 rounded-full shadow-lg border-zinc-400" />
             <div class="w-1/2">
               <div class="p-3 border-2 rounded-lg shadow-lg">
@@ -139,7 +139,7 @@
               <div class="flex flex-row max-w-4xl pl-16 mx-auto mb-2 space-x-3">
                 <img v-if="replyTwo.user.image == null" :src="Img"
                   class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-                <img v-else :src="`http://localhost:8000/storage/images/${replyTwo.user.image}`"
+                <img v-else :src="`${url}storage/images/${replyTwo.user.image}`"
                   class="w-10 h-10 mt-1 border-2 rounded-full shadow-lg border-zinc-400" />
                 <div class="w-1/2">
                   <div class="p-3 border-2 rounded-lg shadow-lg">
@@ -161,7 +161,7 @@
                   <div class="flex flex-row max-w-4xl pl-24 mx-auto mb-2 space-x-3">
                     <img v-if="replyThree.user.image == null" :src="Img"
                       class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-                    <img v-else :src="`http://localhost:8000/storage/images/${replyThree.user.image}`"
+                    <img v-else :src="`${url}storage/images/${replyThree.user.image}`"
                       class="w-10 h-10 mt-1 border-2 rounded-full shadow-lg border-zinc-400" />
                     <div class="w-1/2">
                       <div class="p-3 border-2 rounded-lg shadow-lg">
@@ -183,7 +183,7 @@
                       <div class="flex flex-row max-w-4xl pl-32 mx-auto mb-2 space-x-3">
                         <img v-if="replyFour.user.image == null" :src="Img"
                           class="w-10 h-10 border-2 border-gray-400 rounded-full shadow-lg" />
-                        <img v-else :src="`http://localhost:8000/storage/images/${replyFour.user.image}`"
+                        <img v-else :src="`${url}storage/images/${replyFour.user.image}`"
                           class="w-10 h-10 mt-1 border-2 rounded-full shadow-lg border-zinc-400" />
                         <div class="w-1/2">
                           <div class="p-3 border-2 rounded-lg shadow-lg">
@@ -222,8 +222,9 @@ import ImgI from "@/assets/img/first_img.png";
 import { ref, onMounted } from "vue";
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
-import api from '~/utils/api';
+import notiflix from 'notiflix/build/notiflix-confirm-aio';
+const { Confirm } = notiflix;
+import { api, url } from '~/utils/api';
 
 export default {
   layout: 'default',
@@ -308,7 +309,7 @@ export default {
       ).then((res) => {
         if (res.data.readPost.images && res.data.readPost.images.length > 0) {
           res.data.readPost.images.forEach((img, index) => {
-            res.data.readPost.images[index].image = "http://localhost:8000/storage/images/" + img.image;
+            res.data.readPost.images[index].image = `${url}storage/images/` + img.image;
           });
         }
         themeStore.getDetailPost(res.data.readPost);

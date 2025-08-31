@@ -110,7 +110,7 @@ import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import api from '~/utils/api';
+import { api, url } from '~/utils/api';
 
 
 export default {
@@ -202,7 +202,7 @@ export default {
           res.data.search.forEach(post => {
             if (post.images && post.images.length > 0) {
               post.images.forEach((img, index) => {
-                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                post.images[index].image = `${url}storage/images/` + img.image;
               });
             }
           });
@@ -270,7 +270,7 @@ export default {
         res.data.search.forEach(post => {
           if (post.images && post.images.length > 0) {
             post.images.forEach((img, index) => {
-              post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+              post.images[index].image = `${url}storage/images/` + img.image;
             });
           }
         });

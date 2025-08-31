@@ -56,7 +56,7 @@
 <script>
 import { useForm, useField } from 'vee-validate';
 import * as Yup from 'yup';
-import api from '~/utils/api';
+import { api, url } from '~/utils/api';
 
 export default {
   setup() {
@@ -88,7 +88,7 @@ export default {
         const res = await api.post('userAuth/create/user', data);
         themeStore.getUser(res.data.user);
         localStorage.setItem('token', res.data.token);
-        res.data.user.image = 'http://localhost:8000/storage/images/' + res.data.user.image;
+        res.data.user.image = `${url}storage/images/` + res.data.user.image;
         localStorage.setItem('user', JSON.stringify(res.data.user));
         navigateTo('/about');
       } catch (error) {

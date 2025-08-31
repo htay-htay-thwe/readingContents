@@ -175,7 +175,7 @@ import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import { Heading } from '@tiptap/extension-heading'
-import api from '~/utils/api';
+import { api, url } from '~/utils/api';
 
 export default {
   setup() {
@@ -266,16 +266,17 @@ export default {
         }
       }).then((res) => {
         res.data.post.forEach(post => {
+          console.log('work');
           if (post.images && post.images.length > 0) {
             post.images.forEach((img, index) => {
-              post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+              post.images[index].image = `${url}storage/images/` + img.image;
             });
           }
         }),
           res.data.postAuth.forEach(post => {
             if (post.images && post.images.length > 0) {
               post.images.forEach((img, index) => {
-                post.images[index].image = 'http://localhost:8000/storage/images/' + img.image;
+                post.images[index].image = `${url}storage/images/` + img.image;
               });
             }
           }),
