@@ -13,7 +13,7 @@ A modern, fast, and responsive **Vue/Nuxt.js** application for managing and view
 * Dynamic content rendering using **Nuxt pages** and **stores (Pinia)**.
 * Optimized for **performance** and **fast load times**.
 * Reusable utilities and helpers for efficient development.
-* Easy to extend and integrate with backend APIs.
+* Easy to extend and integrate with backend APIs of laravel.
 
 ---
 
@@ -94,8 +94,6 @@ This project demonstrates my ability to:
 
 ## 🔹 Future Improvements
 
-* Add user authentication and role-based content access.
-* Integrate with a real backend API for dynamic content.
 * Implement offline support and PWA capabilities.
 * Add unit and end-to-end tests for components and pages.
 
@@ -105,8 +103,6 @@ This project demonstrates my ability to:
 
 If you have any questions or would like to discuss my project, feel free to reach out:
 
-* **Email:** \[[your-email@example.com](mailto:your-email@example.com)]
-* **LinkedIn:** \[Your LinkedIn Profile]
-* **Portfolio:** \[Your Portfolio Link]
+* **Email:** htayhtaythwe962@gmail.com
 
 ---
