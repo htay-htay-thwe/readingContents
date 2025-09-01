@@ -140,9 +140,9 @@ If you have any questions or would like to discuss my project, feel free to reac
 ![localhost_3000_detail_15 (3)](https://github.com/user-attachments/assets/369f28c5-b030-4464-94f3-8a19c90d3ee5)
 
 ## Save Posts - Dark Mode 
-![localhost_3000_about](https://github.com/user-attachments/assets/c1cea367-5579-4007-9850-43d54a5916ac)
+[localhost_3000_about](https://github.com/user-attachments/assets/c1cea367-5579-4007-9850-43d54a5916ac)
 
 ## Profile Page - Dark Mode 
-![localhost_3000_about (2)](https://github.com/user-attachments/assets/f5897bf3-75d1-467c-9599-349c3884d80e)
+[localhost_3000_about (2)](https://github.com/user-attachments/assets/f5897bf3-75d1-467c-9599-349c3884d80e)
 
 
