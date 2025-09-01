@@ -1,3 +1,4 @@
+````markdown
 # 📚 Reading Contents
 
 An elegant and fast **Nuxt 3 + Tailwind CSS** application for reading, organizing, and managing digital content.  
@@ -34,3 +35,57 @@ readingContents/
 │── package.json         # Project dependencies & scripts
 │── tailwind.config.js   # Tailwind configuration
 │── tsconfig.json        # TypeScript configuration
+````
+
+---
+
+## ⚙️ Getting Started
+
+```bash
+# 1️⃣ Clone the repository
+git clone https://github.com/htay-htay-thwe/readingContents.git
+cd readingContents
+
+# 2️⃣ Install dependencies
+npm install
+
+# 3️⃣ Run the development server
+npm run dev
+# App will be running at http://localhost:3000
+
+# 4️⃣ Build for production
+npm run build
+```
+
+---
+
+## 🛠 Tech Stack
+
+* Nuxt 3 – Vue.js framework
+* Tailwind CSS – utility-first CSS
+* Pinia – state management
+* TypeScript – safer and cleaner code
+
+---
+
+## 🌟 Why This Project?
+
+* Writing scalable frontend architecture
+* Using modern Vue/Nuxt ecosystem tools
+* Building with best practices in mind (clean code, reusable components, performance)
+* Preparing for real-world deployments
+
+---
+
+## 🖼 Screenshots / Demo
+
+
+
+---
+
+## 📄 License
+
+MIT License
+
+```
+```
